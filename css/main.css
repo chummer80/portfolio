@@ -1,0 +1,16 @@
+* {
+	outline: 1px red solid;
+}
+
+#project_wheel {
+	
+}
+
+.project_pane {
+	border: 2px blue solid;
+	height: 10rem;
+	width: 10rem;
+	
+	display: inline-block;
+	/* position: absolute; */
+}
