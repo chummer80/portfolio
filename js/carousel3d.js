@@ -1,3 +1,10 @@
+// carousel3d creates a div containing a 3D carousel that can be inserted anywhere in the DOM.
+// jQuery is required. 
+
+/****************************
+* carousel3d Class Definition
+*****************************/ 
+
 function carousel3d (elementArray) {
 	console.assert($.type(elementArray) === 'array', 'carousel3d(elementArray): elementArray must be an array. Value: ' + elementArray.toString());
 	console.assert(elementArray.length > 1, 'carousel3d(elementArray): elementArray must have at least 2 elements. Value: ' + elementArray.length);
@@ -22,6 +29,8 @@ function carousel3d (elementArray) {
 			'-o-transform': translateFn + ' ' + tiltFn + ' ' + rotateFn,
             transform: translateFn + ' ' + tiltFn + ' ' + rotateFn,
 		});
+		
+		console.log("front panel is : " + frontPanelNum);
 	};
 	
 	/*************************
@@ -45,6 +54,8 @@ function carousel3d (elementArray) {
 	var radius = calcRadius();
 	// the theta value tracks the current rotation of the carousel
 	var theta = 0; 
+	// keep track of which panel is in front
+	var frontPanelNum = 1;
 	
 
 	/*************************
@@ -123,18 +134,20 @@ function carousel3d (elementArray) {
 	
 	this.spinNext = function() {
 		theta += ( 360 / elementArray.length );
+		frontPanelNum = (frontPanelNum < elementArray.length) ? (frontPanelNum + 1) : 1;
 		spinCarousel();
 	};
 	
 	this.spinPrev = function() {
 		theta -= ( 360 / elementArray.length );
+		frontPanelNum = (frontPanelNum > 1) ? (frontPanelNum - 1) : elementArray.length;
 		spinCarousel();
 	};
-	
+/* 	
 	this.spinTo = function(panelNum) {
 		theta = ( 360 / elementArray.length ) * (panelNum - 1) * -1;
 		spinCarousel();
-	};
+	}; */
 	
 	this.setWidth = function(desiredWidth, units) {
 		width = desiredWidth;
