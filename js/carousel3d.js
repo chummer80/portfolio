@@ -5,16 +5,15 @@
 * carousel3d Class Definition
 *****************************/ 
 
-function carousel3d (elementArray) {
-	console.assert($.type(elementArray) === 'array', 'carousel3d(elementArray): elementArray must be an array. Value: ' + elementArray.toString());
-	console.assert(elementArray.length > 1, 'carousel3d(elementArray): elementArray must have at least 2 elements. Value: ' + elementArray.length);
+function carousel3d (numPanels) {
+	console.assert(numPanels > 1, 'carousel3d(numPanels): carousel must have at least 2 elements. Value: ' + numPanels);
 	
 	/*************************
 	* Private Member Functions
 	**************************/ 
 	
 	var calcRadius = function() {
-		return ( width / 2 ) / Math.tan( Math.PI / elementArray.length );
+		return ( width / 2 ) / Math.tan( Math.PI / numPanels );
 	};
 	
 	// update the carousel's rotation based on the current theta value
@@ -76,8 +75,8 @@ function carousel3d (elementArray) {
 		
 		carouselObj.css({
 			// carousel will be the exact same size as the container
-			width: '100%',
-			height: '100%',
+			// width: '100%',
+			// height: '100%',
 			'margin-left': 'auto',
 			'margin-right': 'auto',
 			// use 'preserve-3d' to make the panels all use the same 3d space context
@@ -96,7 +95,7 @@ function carousel3d (elementArray) {
 		spinCarousel();
 		
 		// create panels that will make up the carousel in a circular pattern
-		var numElements = elementArray.length;
+		var numElements = numPanels;
 		translateFn = 'translateZ(' + radius + widthUnits + ')';
 		var rotateFn = '';
 		var newPanel = null;
@@ -119,35 +118,16 @@ function carousel3d (elementArray) {
 			
 			
 			// add panel to the jquery collection for future reference
-			carouselPanels.add(newPanel);
+			// carouselPanels.add(newPanel);
 			
 			// append the new panel object to the carousel object
 			newPanel.appendTo(carouselObj);
 		}
 		
+		carouselPanels = carouselObj.children();
+		
 		carouselObj.appendTo(containerObj);
 	};
-	
-	this.getJqueryObj = function () {
-		return containerObj;
-	};
-	
-	this.spinNext = function() {
-		theta += ( 360 / elementArray.length );
-		frontPanelNum = (frontPanelNum < elementArray.length) ? (frontPanelNum + 1) : 1;
-		spinCarousel();
-	};
-	
-	this.spinPrev = function() {
-		theta -= ( 360 / elementArray.length );
-		frontPanelNum = (frontPanelNum > 1) ? (frontPanelNum - 1) : elementArray.length;
-		spinCarousel();
-	};
-/* 	
-	this.spinTo = function(panelNum) {
-		theta = ( 360 / elementArray.length ) * (panelNum - 1) * -1;
-		spinCarousel();
-	}; */
 	
 	this.setWidth = function(desiredWidth, units) {
 		width = desiredWidth;
@@ -164,4 +144,46 @@ function carousel3d (elementArray) {
 	this.setTilt = function(tiltDegrees) {
 		tilt = tiltDegrees;
 	}
+	this.getFrontPanelNum = function() {
+		return frontPanelNum;
+	}
+	
+	this.getJqueryObj = function() {
+		return containerObj;
+	};
+	
+	this.getPanelObj = function(panelNum) {
+		if (panelNum < 1) {
+			panelNum = 1;
+		}
+		if (panelNum > numPanels) {
+			panelNum = numPanels;
+		}
+		
+		var panelIndex = panelNum - 1;
+		
+		return carouselPanels.eq(panelIndex);
+	};
+	
+	this.getFrontPanelObj = function() {
+		return this.getPanelObj(frontPanelNum);
+	};
+	
+	this.spinNext = function() {
+		theta += ( 360 / numPanels );
+		frontPanelNum = (frontPanelNum < numPanels) ? (frontPanelNum + 1) : 1;
+		spinCarousel();
+	};
+	
+	this.spinPrev = function() {
+		theta -= ( 360 / numPanels );
+		frontPanelNum = (frontPanelNum > 1) ? (frontPanelNum - 1) : numPanels;
+		spinCarousel();
+	};
+/* 	
+	this.spinTo = function(panelNum) {
+		theta = ( 360 / numPanels ) * (panelNum - 1) * -1;
+		spinCarousel();
+	}; */
+
 }
