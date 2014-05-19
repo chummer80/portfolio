@@ -119,6 +119,7 @@ function Carousel3d (numPanels) {
 	// keep track of which panel is in front
 	var frontPanelNum = 1;
 	var animCompleteCB = null;
+	var animCount = 0;
 	
 	/****************
 	* Private Methods
@@ -136,6 +137,7 @@ function Carousel3d (numPanels) {
 
 		// Instead of using CSS transitions, use jQuery's animate() method with a
 		// step function to animate the carousel rotation.
+		animCount++;
 		carouselObj.animate({theta: theta}, {
 			step: function(now, fx) {
 				var transformFn = translateFn + ' ' + tiltFn + ' ' + 'rotateY(' + now + 'deg)';
@@ -146,7 +148,12 @@ function Carousel3d (numPanels) {
 					transform: transformFn,
 				});
 			},
-			complete: animCompleteCB
+			complete: function() {
+				animCount--;
+				if (animCount === 0) {
+					animCompleteCB();
+				}
+			}
 		}, 1000);
 	};
 
