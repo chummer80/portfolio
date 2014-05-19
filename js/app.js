@@ -17,7 +17,7 @@ $(document).ready(function() {
 	* Project Info
 	*******************/ 
 	
-	var projectInfo = [
+	var projectInfoArray = [
 		{
 			name: "Baxter's Resume",
 			description: "Looking for a new best friend? Look no further! "
@@ -103,8 +103,8 @@ $(document).ready(function() {
 	*******************/ 
 	
 	
-	var carousel = new Carousel3d(projectInfo.length);
-	carousel.setTilt(-180);
+	var carousel = new Carousel3d(projectInfoArray.length);
+	carousel.setTilt(-8);
 	carousel.setWidth(37, 'rem');
 	carousel.setHeight(22, 'rem');
 	carousel.setPanelWidthPercent(80);
@@ -113,10 +113,10 @@ $(document).ready(function() {
 	carousel.initialize();
 	
 	// Display the info for each project on a different panel
-	for (var i = 0; i < projectInfo.length; i++) {
+	for (var i = 0; i < projectInfoArray.length; i++) {
 		var panelObj = carousel.getPanelObj(i + 1);
 		panelObj.css({
-			'background-image': 'url("' + projectInfo[i].image + '")',
+			'background-image': 'url("' + projectInfoArray[i].image + '")',
 			'background-repeat': 'no-repeat',
 			'background-position': 'center center',
 			'-webkit-background-size': 'contain',
@@ -126,12 +126,13 @@ $(document).ready(function() {
 		});
 	}
 	
-	// make carousel visible by inserting it into the DOM
-	carousel.getJqueryObj().appendTo($('body'));
+	// make carousel visible by inserting it into the DOM.
+	// Place it after the title, with 1 spacer div in between.
+	carousel.getJqueryObj().insertAfter($('#title_div + div.flex_spacer'));
 	
 	carousel.setAnimCompleteCB(function() {
 		debug("Front panel is: " + carousel.getFrontPanelNum());
 	});
 	
-	// window.setInterval(carousel.spinNext, 1000);
+	window.setInterval(carousel.spinNext, 1000);
 });
