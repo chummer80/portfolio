@@ -3,7 +3,7 @@ $(document).ready(function() {
 	/******************
 	* Debug Helpers
 	*******************/ 
-	var DEBUG = true;
+	var DEBUG = false;
 
 	var debug = function debug(message) {
 		if (DEBUG) {
