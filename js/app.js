@@ -86,16 +86,26 @@ $(document).ready(function() {
 		},
 	];
 
+	/******************
+	* Utility Functions
+	*******************/ 
+	
+	var setProjectName = function(name) {
+		$('#project_name').text(name);
+	};
 	
 	/**************************
 	* DOM Object Event Handlers
 	***************************/ 
 	
-	$('#button_prev').click(function() {
-		carousel.spinPrev();	
+	$('#arrow_button_left').click(function() {
+		setProjectName("");
+		carousel.spinNext();
 	});
-	$('#button_next').click(function() {
-		carousel.spinNext();	
+	
+	$('#arrow_button_right').click(function() {
+		setProjectName("");
+		carousel.spinPrev();
 	});
 	
 	/******************
@@ -131,8 +141,13 @@ $(document).ready(function() {
 	carousel.getJqueryObj().insertAfter($('#title_div + div.flex_spacer'));
 	
 	carousel.setAnimCompleteCB(function() {
-		debug("Front panel is: " + carousel.getFrontPanelNum());
+		var frontPanelNum = carousel.getFrontPanelNum();
+		debug("Front panel is: " + frontPanelNum);
+		
+		var projectIndex = frontPanelNum - 1;
+		var projectName = projectInfoArray[projectIndex].name;
+		setProjectName(projectName);
 	});
 	
-	window.setInterval(carousel.spinNext, 1000);
+	// window.setInterval(carousel.spinNext, 1000);
 });
