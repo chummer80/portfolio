@@ -1,36 +1,98 @@
-// carousel3d creates a div containing a 3D carousel that can be inserted anywhere in the DOM.
-// jQuery is required. 
+/******************************************************************************
+Carousel3d class
 
-/****************************
-* carousel3d Class Definition
-*****************************/ 
+A carousel3d object contains a div containing a 3D carousel that can be 
+inserted anywhere into the DOM of a web page. jQuery is required. 
 
-function carousel3d (numPanels) {
-	console.assert(numPanels > 1, 'carousel3d(numPanels): carousel must have at least 2 elements. Value: ' + numPanels);
+Constructor:
+------------
+Carousel3d(number numPanels)
+	numPanels is the desired number of panels on the carousel. The minimum
+	value is 2 (which will create a card-flip effect, rather than a circular 
+	carousel).
+
+Public Methods:
+---------------
+initialize()
+	returns: N/A
+	Creates all DOM elements needed for the carousel, sets required CSS 
+	properties,	and attaches them all together in the correct hierarchy. All
+	settings (e.g. width, height) should be set before initialize() is called.
+
+setWidth(number desiredWidth, string units)
+	returns: N/A
+	Width value and units should be consistent with what is supported by CSS.
+	This will determine the width of the front-most face of the carousel.
+	Carousel radius is automatically calculated to ensure that the sides of 
+	carousel will not overlap or collide. If width is not set, the default will
+	be '20 rem'.
+
+setHeight(number desiredHeight, string units)
+	returns: N/A
+	Height value and units should be consistent with what is supported by CSS.
+	This will determine the height of the front-most face of the carousel.
+	The height of each carousel panel will use this height value as well.
+	If height is not set, the default will be '20 rem'.
 	
-	/*************************
-	* Private Member Functions
-	**************************/ 
+setTilt(number tiltDegrees)
+	returns: N/A
+	Rotates the carousel around the X axis.  This allows panels in the back
+	to be partially visible even though they are behind the front panels.
+	If tilt is not set, the default will be 0 degrees.
 	
-	var calcRadius = function() {
-		return ( width / 2 ) / Math.tan( Math.PI / numPanels );
-	};
+setPanelWidthPercent(number desiredWidthPercent)
+	returns: N/A
+	Set the width of each panel, relative to the width of the carousel face on
+	which it resides. For example, 100% will have the panel edges perfectly
+	touching each other. 80% will leave spaces between the panels. 150% will 
+	make the panels	appear to overlap. If panel width is not set, the default 
+	will be 100%.
+
+setAnimCompleteCB(function callbackFn)
+	returns: N/A
+	Allows a callback function to be defined. The callback will be executed
+	after every time the carousel spin animation completes.
 	
-	// update the carousel's rotation based on the current theta value
-	var spinCarousel = function() {
-		// offset the carousel on the Z axis to account for the depth of the panels
-		var translateFn = 'translateZ(-' + radius + widthUnits + ')';
-		var rotateFn = 'rotateY(' + theta.toString() + 'deg)';
-		var tiltFn = 'rotateX(' + tilt.toString() + 'deg)';
-		carouselObj.css({
-			'-webkit-transform': translateFn + ' ' + tiltFn + ' ' + rotateFn,
-			'-moz-transform': translateFn + ' ' + tiltFn + ' ' + rotateFn,
-			'-o-transform': translateFn + ' ' + tiltFn + ' ' + rotateFn,
-            transform: translateFn + ' ' + tiltFn + ' ' + rotateFn,
-		});
-		
-		console.log("front panel is : " + frontPanelNum);
-	};
+getFrontPanelNum()
+	returns: number
+	Panels are numbered starting at 1. The identifying number that indicates 
+	which panel is currently is at the front of the carousel (i.e. closest to
+	the viewport) will be returned. Immediately after the panels are initially
+	created (via the initialize() method), the panel number 1 is in front.
+	
+getJqueryObj()
+	returns: jQuery
+	This returns the jQuery object that has the carousel container. This
+	container can be inserted into the DOM to make the carousel visible.
+	
+getPanelObj(number panelNum)
+	returns: jQuery
+	Panel numbers start at 1 in the order that they were created. The requested
+	panel DOM element is returned in the form of a jQuery object.
+	
+getFrontPanelObj()
+	returns: jQuery
+	This is equivalent to getPanelObj(getFrontPanelNum()). A jQuery obj that
+	contains the carousel's front-most panel will be returned.
+	
+spinNext()
+	returns: N/A
+	Spins all carousel panels to the left by one panel length. The animation
+	takes 1 second to complete. After completion, the callback defined by 
+	setAnimCompleteCB() will execute. 
+	
+spinPrev()
+	returns: N/A
+	Spins all carousel panels to the right by one panel length. The animation
+	takes 1 second to complete. After completion, the callback defined by 
+	setAnimCompleteCB() will execute.
+
+*******************************************************************************/
+
+
+function Carousel3d (numPanels) {
+	console.assert(numPanels > 1, 
+		"carousel3d(numPanels): carousel must have at least 2 elements. Value: " + numPanels);
 	
 	/*************************
 	* Private Member Variables
@@ -48,6 +110,7 @@ function carousel3d (numPanels) {
 	var height = 20;
 	var heightUnits = 'rem';
 	var tilt = 0;
+	var panelWidthPercent = 100;
 	// trigonometry is used to calculate how far from the center each panel has to be
 	// in order to prevent them from colliding with each other.
 	var radius = calcRadius();
@@ -55,28 +118,61 @@ function carousel3d (numPanels) {
 	var theta = 0; 
 	// keep track of which panel is in front
 	var frontPanelNum = 1;
+	var animCompleteCB = null;
 	
+	/****************
+	* Private Methods
+	*****************/ 
+	
+	function calcRadius() {
+		return ( width / 2 ) / Math.tan( Math.PI / numPanels );
+	};
+	
+	// update the carousel's rotation to the current theta value
+	function spinCarousel() {
+		// offset the carousel on the Z axis to account for the depth of the panels
+		var translateFn = 'translateZ(-' + radius + widthUnits + ')';
+		var tiltFn = 'rotateX(' + tilt + 'deg)';
 
-	/*************************
-	* Public Member Functions
-	**************************/ 
+		// Instead of using CSS transitions, use jQuery's animate() method with a
+		// step function to animate the carousel rotation.
+		carouselObj.animate({theta: theta}, {
+			step: function(now, fx) {
+				var transformFn = translateFn + ' ' + tiltFn + ' ' + 'rotateY(' + now + 'deg)';
+				$(this).css({
+					'-webkit-transform': transformFn,
+					'-moz-transform': transformFn,
+					'-o-transform': transformFn,
+					transform: transformFn,
+				});
+			},
+			complete: animCompleteCB
+		}, 1000);
+	};
+
+
+	/***************
+	* Public Methods
+	****************/ 
 	
 	this.initialize = function() {
 		// set CSS attributes for the container
 		containerObj.css({
 			'-webkit-perspective': '2000px',
 			perspective: '2000px',
-			width: width.toString() + widthUnits,
-			height: height.toString() + heightUnits,
+			width: width + widthUnits,
+			height: height + heightUnits,
 			'margin-left': 'auto',
 			'margin-right': 'auto'
 		});
 		containerObj.addClass('carousel_container');
 		
 		carouselObj.css({
-			// carousel will be the exact same size as the container
-			// width: '100%',
-			// height: '100%',
+			// carousel width is what dictates the width of the panel. 
+			// A value less than 100% creates spaces between the panels.
+			width: panelWidthPercent + '%',
+			// carousel will be the exact same height as the container
+			height: '100%',
 			'margin-left': 'auto',
 			'margin-right': 'auto',
 			// use 'preserve-3d' to make the panels all use the same 3d space context
@@ -84,11 +180,8 @@ function carousel3d (numPanels) {
 			'-moz-transform-style': 'preserve-3d',
 			'-o-transform-style': 'preserve-3d',
 			'transform-style': 'preserve-3d',
-			// use a 1 second transition when carousel is spun
-			// '-webkit-transition': '-webkit-transform 1s',
-			// '-moz-transition': '-moz-transform 1s',
-			// '-o-transition': '-o-transform 1s',
-            // transition: 'transform 1s'
+			// set a theta css property to be used for animation in spinCarousel()
+			theta: theta
 		});
 		carouselObj.addClass('carousel');
 		
@@ -102,7 +195,7 @@ function carousel3d (numPanels) {
 		
 		for (var i = 0; i < numElements; i++) {
 			newPanel = $('<figure>');
-			rotateFn = 'rotateY(' + (360/numElements * i).toString() + 'deg)';
+			rotateFn = 'rotateY(' + (360/numElements * i) + 'deg)';
 			newPanel.css({
 				position: 'absolute',
 				width: '100%',
@@ -115,10 +208,7 @@ function carousel3d (numPanels) {
 				'-o-transform': rotateFn + ' ' + translateFn,
 				transform: rotateFn + ' ' + translateFn,
 			});
-			
-			
-			// add panel to the jquery collection for future reference
-			// carouselPanels.add(newPanel);
+			newPanel.addClass('carousel_panel');
 			
 			// append the new panel object to the carousel object
 			newPanel.appendTo(carouselObj);
@@ -133,6 +223,8 @@ function carousel3d (numPanels) {
 		width = desiredWidth;
 		widthUnits = units;
 		radius = calcRadius();
+		
+		// update the carousel display with the new width and radius
 		spinCarousel();
 	};
 	
@@ -144,6 +236,18 @@ function carousel3d (numPanels) {
 	this.setTilt = function(tiltDegrees) {
 		tilt = tiltDegrees;
 	}
+	
+	this.setPanelWidthPercent = function(desiredWidthPercent) {
+		// carousel width is what dictates the width of the panel. 
+		// A value less than 100% creates spaces between the panels.
+		panelWidthPercent = desiredWidthPercent;
+		carouselObj.css('width', panelWidthPercent + '%');
+	}
+	
+	this.setAnimCompleteCB = function(callbackFn) {
+		animCompleteCB = callbackFn;
+	}
+	
 	this.getFrontPanelNum = function() {
 		return frontPanelNum;
 	}
@@ -170,13 +274,13 @@ function carousel3d (numPanels) {
 	};
 	
 	this.spinNext = function() {
-		theta += ( 360 / numPanels );
+		theta -= ( 360 / numPanels );
 		frontPanelNum = (frontPanelNum < numPanels) ? (frontPanelNum + 1) : 1;
 		spinCarousel();
 	};
 	
 	this.spinPrev = function() {
-		theta -= ( 360 / numPanels );
+		theta += ( 360 / numPanels );
 		frontPanelNum = (frontPanelNum > 1) ? (frontPanelNum - 1) : numPanels;
 		spinCarousel();
 	};

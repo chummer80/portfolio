@@ -6,39 +6,14 @@
 .carousel_container {
 	margin-top: 20rem;
 	margin-bottom: 20rem;
-/* 	width: 21rem;
-	height: 25rem; */
-	margin-left: auto;
-	margin-right: auto;
-	-webkit-perspective: 2000px;
-	perspective: 2000px;
 }
 
 .carousel {
-	width: 80%;
-	height: 100%;
-	-webkit-transform-style: preserve-3d;
-    -moz-transform-style: preserve-3d;
-    -o-transform-style: preserve-3d;
-    transform-style: preserve-3d;
-	
-	-webkit-transform: rotateX(-15deg ) rotateY(0deg );
-	-webkit-transition: -webkit-transform 1s;
 }
 
-.carousel figure {
-	position: absolute;
+.carousel_panel {
 	border: 2px black solid;
-	width: 100%;
-	height: 100%;
 	border-radius: 10px;
 	background-color: white;
-/* 	opacity: 0.6; */
+ 	/* opacity: 0.7; */
 }
-
-.carousel figure:nth-child(1) { -webkit-transform: rotateY(   0deg ) translateZ( 21rem ); }
-.carousel figure:nth-child(2) { -webkit-transform: rotateY(  60deg ) translateZ( 21rem ); }
-.carousel figure:nth-child(3) { -webkit-transform: rotateY(  120deg ) translateZ( 21rem ); }
-.carousel figure:nth-child(4) { -webkit-transform: rotateY( 180deg ) translateZ( 21rem ); }
-.carousel figure:nth-child(5) { -webkit-transform: rotateY( 240deg ) translateZ( 21rem ); }
-.carousel figure:nth-child(6) { -webkit-transform: rotateY( 300deg ) translateZ( 21rem ); }

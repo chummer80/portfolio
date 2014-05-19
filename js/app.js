@@ -3,7 +3,6 @@ $(document).ready(function() {
 	var DEBUG = true;
 	
 	
-	
 	/******************
 	* Utility Functions
 	*******************/ 
@@ -88,17 +87,31 @@ $(document).ready(function() {
 	];
 
 	
+	/**************************
+	* DOM Object Event Handlers
+	***************************/ 
+	
+	$('#button_prev').click(function() {
+		carousel.spinPrev();	
+	});
+	$('#button_next').click(function() {
+		carousel.spinNext();	
+	});
+	
 	/******************
 	* TEST CODE
 	*******************/ 
 	
 	
-	var carousel = new carousel3d(projectInfo.length);
-	carousel.setTilt(-8);
-	carousel.setWidth(27, 'rem');
-	carousel.setHeight(18, 'rem');
-	// build carousel container and panels
+	var carousel = new Carousel3d(projectInfo.length);
+	carousel.setTilt(-180);
+	carousel.setWidth(37, 'rem');
+	carousel.setHeight(22, 'rem');
+	carousel.setPanelWidthPercent(80);
+	
+	// build the carousel container and panels
 	carousel.initialize();
+	
 	// Display the info for each project on a different panel
 	for (var i = 0; i < projectInfo.length; i++) {
 		var panelObj = carousel.getPanelObj(i + 1);
@@ -113,11 +126,12 @@ $(document).ready(function() {
 		});
 	}
 	
-	
 	// make carousel visible by inserting it into the DOM
 	carousel.getJqueryObj().appendTo($('body'));
 	
+	carousel.setAnimCompleteCB(function() {
+		debug("Front panel is: " + carousel.getFrontPanelNum());
+	});
 	
-	
-	window.setInterval(carousel.spinNext, 1000);
+	// window.setInterval(carousel.spinNext, 1000);
 });
