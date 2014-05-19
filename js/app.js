@@ -66,9 +66,9 @@ $(document).ready(function() {
 		},
 		{
 			name: "Stack Overflow Reputation Builder",
-			description: "This app uses jQuery's AJAX methods to query Stack Overlow's API and then "
-				+ "populate the page with the results. There are two possible search types, both using a "
-				+ "keyword as a filter: 1) Most recent questions and 2) Highest-scoring answerer.",
+			description: "This app uses jQuery's AJAX methods to query Stack Overlow's REST API and then "
+				+ "fill the page with the results. There are two possible search types, both using a "
+				+ "keyword as a filter: 1) Most recent questions and 2) Highest-scoring answerers.",
 			image: 'images/stackoverflow_thumb.png',
 			link: 'http://chummer80.github.io/stackerAJAX/'
 		},
@@ -104,7 +104,7 @@ $(document).ready(function() {
 		
 		// enable hyperlink for this panel only.
 		var frontPanelObj = carousel.getFrontPanelObj();
-		frontPanelObj.find('a').show();
+		// frontPanelObj.find('a').show();
 	};
 	
 	// Customize each panel with different project info
@@ -138,6 +138,10 @@ $(document).ready(function() {
 		projectLink.appendTo(panelObj);
 		// the link is disabled by default
 		projectLink.hide();
+		
+		
+		// Set up events so that clicking this panel open a modal dialog
+		panelObj.click(showModalDialog);
 	};
 	
 	var prepareForSpin = function() {
@@ -147,10 +151,40 @@ $(document).ready(function() {
 	};
 	
 	var carouselPanelToggleGlow = function() {
-		if ($(this).is(carousel.getFrontPanelObj())) {
+		var jQueryPanelObj = $(this);
+		if (jQueryPanelObj.is(carousel.getFrontPanelObj())) {
 			// stop all animations on this panel so that a new
 			// animation can begin immediately
-			$(this).stop(true, true).toggleClass('glowing', 400);
+			jQueryPanelObj.stop(true, true).toggleClass('glowing', 400);
+		}
+	};
+	
+	var showModalDialog = function() {
+		var jQueryPanelObj = $(this);
+		if (jQueryPanelObj.is(carousel.getFrontPanelObj())) {
+			var dialogObj = $('#project_info_dialog');
+			var projectIndex = carousel.getFrontPanelNum() - 1;
+			var projectInfo = projectInfoArray[projectIndex];
+			
+			var projectImage = dialogObj.find('#dialog_project_pic');
+			projectImage.attr({
+				src: projectInfo.image,
+				alt: projectInfo.name + " image"
+			});
+			
+			var projectName = dialogObj.find('#dialog_project_name');
+			projectName.text(projectInfo.name);
+
+			var projectDesc = dialogObj.find('#dialog_project_description');
+			projectDesc.text(projectInfo.description);
+			
+			// Store the URL of the project on this button for later use. When
+			// the user clicks the button, that URL will open in a new window.
+			var projectButton = dialogObj.find('#dialog_open_project_button');
+			projectButton.data('projectlink', projectInfo.link);
+			
+			dialogObj.fadeIn();
+			$('#dim_page_layer').fadeIn();
 		}
 	};
 	
@@ -168,11 +202,23 @@ $(document).ready(function() {
 		carousel.spinPrev();
 	});
 	
+	$('#dialog_back_button').click(function() {
+		// close dialog, remove dimming layer
+		$('#project_info_dialog').fadeOut();
+		$('#dim_page_layer').fadeOut();
+	});
 
+	$('#dialog_open_project_button').click(function() {
+		var projectURL = $(this).data('projectlink');
+		window.open(projectURL);
+	});
 	
 	/******************
 	* START
 	*******************/ 
+	
+	// initially hide the project info dialog
+	$('#project_info_dialog').hide();
 	
 	// Create and initialize the carousel
 	var carousel = new Carousel3d(projectInfoArray.length);
