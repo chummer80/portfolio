@@ -55,10 +55,16 @@ body {
 }
 
 .carousel_panel {
-	border: 2px black solid;
+	border-width: 5px;
+	border-style: solid;
+	border-color: black;
 	border-radius: 10px;
 	background-color: white;
  	/* opacity: 0.7; */
+}
+
+.carousel_panel.glowing {
+	border-color: gold;
 }
 
 #carousel_controls {

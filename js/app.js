@@ -130,7 +130,11 @@ $(document).ready(function() {
 			width: '100%',
 			height: '100%'
 		}).appendTo(projectLink);
-			
+		
+		// Set up mouse events to make the front panel glow when hovered over.
+		panelObj.mouseenter(carouselPanelToggleGlow)
+		panelObj.mouseleave(carouselPanelToggleGlow);
+		
 		projectLink.appendTo(panelObj);
 		// the link is disabled by default
 		projectLink.hide();
@@ -140,6 +144,14 @@ $(document).ready(function() {
 		setProjectName("");
 		var frontPanelObj = carousel.getFrontPanelObj();
 		frontPanelObj.find('a').hide();
+	};
+	
+	var carouselPanelToggleGlow = function() {
+		if ($(this).is(carousel.getFrontPanelObj())) {
+			// stop all animations on this panel so that a new
+			// animation can begin immediately
+			$(this).stop(true, true).toggleClass('glowing', 400);
+		}
 	};
 	
 	/**************************
@@ -155,6 +167,8 @@ $(document).ready(function() {
 		prepareForSpin();
 		carousel.spinPrev();
 	});
+	
+
 	
 	/******************
 	* START
