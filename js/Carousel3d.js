@@ -13,11 +13,15 @@ Carousel3d(number numPanels)
 
 Public Methods:
 ---------------
-initialize()
+initialize(function panelSetupCB)
 	returns: N/A
 	Creates all DOM elements needed for the carousel, sets required CSS 
 	properties,	and attaches them all together in the correct hierarchy. All
 	settings (e.g. width, height) should be set before initialize() is called.
+	panelSetupCB is an optional callback that will be executed once for each
+	panel that is created. It will be called as panelSetupCB(panelNum, panelObj)
+	where panelNum is 1-based panel number, and panelObj is a jQuery object
+	containing just the panel that was just created.
 
 setWidth(number desiredWidth, string units)
 	returns: N/A
@@ -162,7 +166,7 @@ function Carousel3d (numPanels) {
 	* Public Methods
 	****************/ 
 	
-	this.initialize = function() {
+	this.initialize = function(panelSetupCB) {
 		// set CSS attributes for the container
 		containerObj.css({
 			'-webkit-perspective': '2000px',
@@ -216,6 +220,12 @@ function Carousel3d (numPanels) {
 				transform: rotateFn + ' ' + translateFn,
 			});
 			newPanel.addClass('carousel_panel');
+			
+			// check if a valid callback was provided. If it was, execute the setup
+			// callback to customize the panel.
+			if ($.type(panelSetupCB) === 'function') {
+				panelSetupCB(i + 1, newPanel);
+			}
 			
 			// append the new panel object to the carousel object
 			newPanel.appendTo(carouselObj);
