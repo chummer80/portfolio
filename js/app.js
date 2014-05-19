@@ -94,25 +94,44 @@ $(document).ready(function() {
 		$('#project_name').text(name);
 	};
 	
+	var carouselAnimCompleteCB = function() {
+		var frontPanelNum = carousel.getFrontPanelNum();
+		debug("Front panel is: " + frontPanelNum);
+		
+		var projectIndex = frontPanelNum - 1;
+		var projectName = projectInfoArray[projectIndex].name;
+		setProjectName(projectName);
+		
+		// enable hyperlink for this panel only.
+		var frontPanelObj = carousel.getFrontPanelObj();
+		frontPanelObj.find('a').show();
+	};
+	
+	var prepareForSpin = function() {
+		setProjectName("");
+		var frontPanelObj = carousel.getFrontPanelObj();
+		frontPanelObj.find('a').hide();
+	};
+	
 	/**************************
 	* DOM Object Event Handlers
 	***************************/ 
 	
 	$('#arrow_button_left').click(function() {
-		setProjectName("");
+		prepareForSpin();
 		carousel.spinNext();
 	});
 	
 	$('#arrow_button_right').click(function() {
-		setProjectName("");
+		prepareForSpin();
 		carousel.spinPrev();
 	});
 	
 	/******************
-	* TEST CODE
+	* START
 	*******************/ 
 	
-	
+	// Create and initialize the carousel
 	var carousel = new Carousel3d(projectInfoArray.length);
 	carousel.setTilt(-8);
 	carousel.setWidth(37, 'rem');
@@ -122,7 +141,7 @@ $(document).ready(function() {
 	// build the carousel container and panels
 	carousel.initialize();
 	
-	// Display the info for each project on a different panel
+	// Customize each panel with different project info
 	for (var i = 0; i < projectInfoArray.length; i++) {
 		var panelObj = carousel.getPanelObj(i + 1);
 		panelObj.css({
@@ -134,20 +153,29 @@ $(document).ready(function() {
 			'-o-background-size': 'contain',
 			'background-size': 'contain',
 		});
+		
+		// create a link on the panel that will take the user to the project.
+		var projectLink = $('<a>').attr({
+			href: projectInfoArray[i].link,
+			target: '_blank'
+		});
+			
+		// The purpose of this div is to make the link clicking area bigger.
+		$('<div>').css({
+			width: '100%',
+			height: '100%'
+		}).appendTo(projectLink);
+			
+		projectLink.appendTo(panelObj);
+		// the link is disabled by default
+		projectLink.hide();
 	}
 	
 	// make carousel visible by inserting it into the DOM.
 	// Place it after the title, with 1 spacer div in between.
 	carousel.getJqueryObj().insertAfter($('#title_div + div.flex_spacer'));
 	
-	carousel.setAnimCompleteCB(function() {
-		var frontPanelNum = carousel.getFrontPanelNum();
-		debug("Front panel is: " + frontPanelNum);
-		
-		var projectIndex = frontPanelNum - 1;
-		var projectName = projectInfoArray[projectIndex].name;
-		setProjectName(projectName);
-	});
+	carousel.setAnimCompleteCB(carouselAnimCompleteCB);
 	
 	// window.setInterval(carousel.spinNext, 1000);
 });
