@@ -36,6 +36,10 @@ body {
 	color: white;
 	margin-top: 2rem;
 	
+	background: -webkit-linear-gradient(top, white 50%, silver 80%);
+	-webkit-background-clip: text;
+	-webkit-text-fill-color: transparent;
+	
 }
 
 .flex_spacer {
