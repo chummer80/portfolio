@@ -142,9 +142,12 @@ $(document).ready(function() {
 		// the link is disabled by default
 		projectLink.hide();
 		
-		
 		// Set up events so that clicking this panel opens a modal dialog
-		panelObj.click(showModalDialog);
+		panelObj.click(function() {
+			if ($(this).is(carousel.getFrontPanelObj())) {
+				showModalDialog(true);
+			}
+		});
 	};
 	
 	var prepareForSpin = function() {
@@ -183,11 +186,14 @@ $(document).ready(function() {
 		projectButton.data('projectlink', projectInfo.link);
 	};
 	
-	var showModalDialog = function() {
-		var jQueryPanelObj = $(this);
-		if (jQueryPanelObj.is(carousel.getFrontPanelObj())) {
+	var showModalDialog = function(show) {
+		if (show) {
 			$('#project_info_dialog').fadeIn();
 			$('#dim_page_layer').fadeIn();
+		}
+		else if (!show) {
+			$('#project_info_dialog').fadeOut();
+			$('#dim_page_layer').fadeOut();
 		}
 	};
 	
@@ -207,8 +213,7 @@ $(document).ready(function() {
 	
 	$('#dialog_back_button').click(function() {
 		// close dialog, remove dimming layer
-		$('#project_info_dialog').fadeOut();
-		$('#dim_page_layer').fadeOut();
+		showModalDialog(false);
 	});
 
 	$('#dialog_open_project_button').click(function() {
