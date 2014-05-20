@@ -223,7 +223,7 @@ $(document).ready(function() {
 	// Create and initialize the carousel
 	var carousel = new Carousel3d(projectInfoArray.length);
 	carousel.setTilt(-8);
-	carousel.setWidth(37, 'rem');
+	carousel.setWidth(33, 'rem');
 	carousel.setHeight(22, 'rem');
 	carousel.setPanelWidthPercent(80);
 	
