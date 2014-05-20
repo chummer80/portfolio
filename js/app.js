@@ -103,8 +103,11 @@ $(document).ready(function() {
 		setProjectName(projectName);
 		
 		// enable hyperlink for this panel only.
-		var frontPanelObj = carousel.getFrontPanelObj();
+		// var frontPanelObj = carousel.getFrontPanelObj();
 		// frontPanelObj.find('a').show();
+		
+		// set up the project info dialog now so it will be ready to show later.
+		setupProjectDialog(projectInfoArray[projectIndex]);
 	};
 	
 	// Customize each panel with different project info
@@ -140,7 +143,7 @@ $(document).ready(function() {
 		projectLink.hide();
 		
 		
-		// Set up events so that clicking this panel open a modal dialog
+		// Set up events so that clicking this panel opens a modal dialog
 		panelObj.click(showModalDialog);
 	};
 	
@@ -159,31 +162,31 @@ $(document).ready(function() {
 		}
 	};
 	
+	var setupProjectDialog = function(projectInfo) {
+		var dialogObj = $('#project_info_dialog');
+		
+		var projectImage = dialogObj.find('#dialog_project_pic');
+		projectImage.attr({
+			src: projectInfo.image,
+			alt: projectInfo.name + " image"
+		});
+		
+		var projectName = dialogObj.find('#dialog_project_name');
+		projectName.text(projectInfo.name);
+
+		var projectDesc = dialogObj.find('#dialog_project_description');
+		projectDesc.text(projectInfo.description);
+		
+		// Store the URL of the project on this button for later use. When
+		// the user clicks the button, that URL will open in a new window.
+		var projectButton = dialogObj.find('#dialog_open_project_button');
+		projectButton.data('projectlink', projectInfo.link);
+	};
+	
 	var showModalDialog = function() {
 		var jQueryPanelObj = $(this);
 		if (jQueryPanelObj.is(carousel.getFrontPanelObj())) {
-			var dialogObj = $('#project_info_dialog');
-			var projectIndex = carousel.getFrontPanelNum() - 1;
-			var projectInfo = projectInfoArray[projectIndex];
-			
-			var projectImage = dialogObj.find('#dialog_project_pic');
-			projectImage.attr({
-				src: projectInfo.image,
-				alt: projectInfo.name + " image"
-			});
-			
-			var projectName = dialogObj.find('#dialog_project_name');
-			projectName.text(projectInfo.name);
-
-			var projectDesc = dialogObj.find('#dialog_project_description');
-			projectDesc.text(projectInfo.description);
-			
-			// Store the URL of the project on this button for later use. When
-			// the user clicks the button, that URL will open in a new window.
-			var projectButton = dialogObj.find('#dialog_open_project_button');
-			projectButton.data('projectlink', projectInfo.link);
-			
-			dialogObj.fadeIn();
+			$('#project_info_dialog').fadeIn();
 			$('#dim_page_layer').fadeIn();
 		}
 	};
