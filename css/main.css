@@ -3,15 +3,26 @@
 	font-family: RapierZero;
 	src: url('../fonts/Rapier Zero.otf');
 }
+@font-face
+{
+	font-family: BebasNeue;
+	src: url('../fonts/BebasNeue.otf');
+}
 
 * {
 	outline: 1px red solid;
 }
 
+html {
+	height: 100%;
+}
+
 body {
-	height: 100vh;
-	min-width: 75rem;
-	min-height: 52rem;
+	position: relative;
+	height: 100%;
+	width: 100%;
+	min-width: 80rem;
+	min-height: 47rem;
 	
 	background: #499bea; /* Old browsers */
 	background: -moz-linear-gradient(top,  #499bea 25%, #e8e8e8 50%, #499bea 75%); /* FF3.6+ */
@@ -20,16 +31,18 @@ body {
 	background: -o-linear-gradient(top,  #499bea 25%,#e8e8e8 50%,#499bea 75%); /* Opera 11.10+ */
 	background: -ms-linear-gradient(top,  #499bea 25%,#e8e8e8 50%,#499bea 75%); /* IE10+ */
 	background: linear-gradient(to bottom,  #499bea 25%,#e8e8e8 50%,#499bea 75%); /* W3C */
-	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#499bea', endColorstr='#499bea',GradientType=0 ); /* IE6-9 */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#499bea', endColorstr='#499bea',GradientType=0 ); /* IE6-9 */	
 }
 
 /* full-page size, dark semi-transparent layer for a dim effect */
 /* Anything with a Z value higher than this will not be dimmed. */
 #dim_page_layer {
 	display: none; /* hide this dimming layer initially */
-	position: absolute;
-	width: 100%;
-	height: 100%;
+	position: fixed;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
 	background-color: black;
 	opacity: 0.7; /* Safari, Opera */
 	-moz-opacity:0.70; /* FireFox */
@@ -38,47 +51,40 @@ body {
 }
 
 .dialog {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	-webkit-transform: translateX(-50%) translateY(-50%);
+	-moz-transform: translateX(-50%) translateY(-50%);
+	-ms-transform: translateX(-50%) translateY(-50%);
+	transform: translateX(-50%) translateY(-50%);
 	z-index: 20;
 }
 
 #project_info_dialog {
-	position: absolute;
-	top: 20%;
-	bottom: 20%;
-	left: 20%;
-	right:20%;
-	
 	border-width: 5px;
 	border-style: solid;
 	border-color: black;
 	border-radius: 10px;
 	background-color: white;
-
-	display: flex;
-	flex-direction: column;
-	flex-wrap: nowrap;
-	justify-content: center;
-	align-items: center;
 	
-	
-	font-family: Verdana, Geneva, sans-serif;
-	font-size: 1.5rem;
 	color: black;
 	text-align: center;
 }
 
 #dialog_project_pic {
-	height: 50%;
+	height: 25rem;
 }
 
 #dialog_project_name {
-	font-weight: bold;
-/* 	margin-top: 1rem;
-	margin-bottom: 1rem; */
+	font-family: BebasNeue;
+	font-size: 3.5rem;
 }
 
 #dialog_project_description {
-	/* margin-bottom: 1rem; */
+	font-family: Verdana, Geneva, sans-serif;
+	font-size: 1.5rem;
+	line-height: 120%;
 }
 
 .dialog_button {
@@ -89,6 +95,9 @@ body {
 
 #flex_container {
 	height: 100%;
+	width: 80rem;
+	margin-left: auto;
+	margin-right: auto;
 	display: flex;
 	flex-direction: column;
 	flex-wrap: nowrap;
@@ -138,20 +147,18 @@ body {
 	flex-direction: row;
 	flex-wrap: nowrap;
 	justify-content: space-between;
-	align-items: center;
+	align-items: flex-end;
 }
 
 .arrow_button {
 	height: 100%;	
-	align-self: flex-start;
 	flex: none;
 }
 
 
 #project_name {
-	font-family: Verdana, Geneva, sans-serif;
+	font-family: BebasNeue;
 	font-size: 3rem;
 	color: white;
 	text-align: center;
 }
-
