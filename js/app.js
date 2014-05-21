@@ -17,6 +17,25 @@ $(document).ready(function() {
 	
 	var projectInfoArray = [
 		{
+			name: "ZIP Zap",
+			description: "Learn about any ZIP code in the United States using ZIP Zap! "
+				+ "The city, state, time zone, weather and map of that ZIP code are just a click away. "
+				+ "Even a 3D view of the area can be seen with the help of the Google Earth plugin. "
+				+ "The APIs used to get this content were Weather Underground's web API and the Google "
+				+ "Maps / Google Earth JavaScript APIs. (JavaScript, jQuery, AJAX)",
+			image: 'images/zipzap_thumb.png',
+			link: 'http://chummer80.github.io/zipzap/'
+		},
+		{
+			name: "Listomania",
+			description: "This handy app can be used as a to-do list, a shopping list, or any other "
+				+ "type of list you can imagine. Items can be crossed off, removed from the list, or "
+				+ "sorted alphabetically. Want to save the list? No worries, the contents of the list "
+				+ "persist between page visits. (JavaScript, jQuery, HTML5)",
+			image: 'images/listomania_thumb.png',
+			link: 'http://chummer80.github.io/shopping-list/'
+		},
+		{
 			name: "Baxter's Resume",
 			description: "Looking for a new best friend? Look no further! "
 				+ "Baxter the corgi pup is ready to fulfill all doggy duties. "
@@ -48,22 +67,6 @@ $(document).ready(function() {
 			link: 'http://chummer80.github.io/hot-or-cold/'
 		},
 		{
-			name: "Listomania",
-			description: "This handy app can be used as a to-do list, a shopping list, or any other "
-				+ "type of list you can imagine. Items can be crossed off, removed from the list, or "
-				+ "sorted alphabetically. Want to save the list? No worries, the contents of the list "
-				+ "persist between page visits. (JavaScript, jQuery, HTML5)",
-			image: 'images/listomania_thumb.png',
-			link: 'http://chummer80.github.io/shopping-list/'
-		},
-		{
-			name: "NBA Quiz",
-			description: "Think you know a lot about NBA basketball? Test your skills by answering "
-				+ "these trivia questions. (JavaScript, jQuery, HTML5)",
-			image: 'images/nbaquiz_thumb.png',
-			link: 'http://chummer80.github.io/quiz-app/'
-		},
-		{
 			name: "Stack Overflow Reputation Builder",
 			description: "This app sends requests to Stack Overlow's web API and then "
 				+ "fills the page with the results. There are two possible search types, both using a "
@@ -73,14 +76,11 @@ $(document).ready(function() {
 			link: 'http://chummer80.github.io/stackerAJAX/'
 		},
 		{
-			name: "ZIP Zap",
-			description: "Learn about any ZIP code in the United States using ZIP Zap! "
-				+ "The city, state, time zone, weather and map of that ZIP code are just a click away. "
-				+ "Even a 3D view of the area can be seen with the help of the Google Earth plugin. "
-				+ "The APIs used to get this content were Weather Underground's web API and the Google "
-				+ "Maps / Google Earth JavaScript APIs. (JavaScript, jQuery, AJAX)",
-			image: 'images/zipzap_thumb.png',
-			link: 'http://chummer80.github.io/zipzap/'
+			name: "NBA Quiz",
+			description: "Think you know a lot about NBA basketball? Test your skills by answering "
+				+ "these trivia questions. (JavaScript, jQuery, HTML5)",
+			image: 'images/nbaquiz_thumb.png',
+			link: 'http://chummer80.github.io/quiz-app/'
 		},
 	];
 
