@@ -103,8 +103,8 @@ $(document).ready(function() {
 		setProjectName(projectName);
 		
 		// enable hyperlink for this panel only.
-		// var frontPanelObj = carousel.getFrontPanelObj();
-		// frontPanelObj.find('a').show();
+		// var $frontPanelObj = carousel.getFrontPanelObj();
+		// $frontPanelObj.find('a').show();
 		
 		// set up the project info dialog now so it will be ready to show later.
 		setupProjectDialog(projectInfoArray[projectIndex]);
@@ -123,7 +123,7 @@ $(document).ready(function() {
 		});
 		
 		// create a link on the panel that will take the user to the project.
-		var projectLink = $('<a>').attr({
+		var $projectLink = $('<a>').attr({
 			href: projectInfoArray[panelNum-1].link,
 			target: '_blank'
 		});
@@ -132,15 +132,15 @@ $(document).ready(function() {
 		$('<div>').css({
 			width: '100%',
 			height: '100%'
-		}).appendTo(projectLink);
+		}).appendTo($projectLink);
 		
 		// Set up mouse events to make the front panel glow when hovered over.
 		panelObj.mouseenter(carouselPanelToggleGlow)
 		panelObj.mouseleave(carouselPanelToggleGlow);
 		
-		projectLink.appendTo(panelObj);
+		$projectLink.appendTo(panelObj);
 		// the link is disabled by default
-		projectLink.hide();
+		$projectLink.hide();
 		
 		// Set up events so that clicking this panel opens a modal dialog
 		panelObj.click(function() {
@@ -152,38 +152,38 @@ $(document).ready(function() {
 	
 	var prepareForSpin = function() {
 		setProjectName("");
-		var frontPanelObj = carousel.getFrontPanelObj();
-		frontPanelObj.find('a').hide();
+		var $frontPanelObj = carousel.getFrontPanelObj();
+		$frontPanelObj.find('a').hide();
 	};
 	
 	var carouselPanelToggleGlow = function() {
-		var jQueryPanelObj = $(this);
-		if (jQueryPanelObj.is(carousel.getFrontPanelObj())) {
+		var $panelObj = $(this);
+		if ($panelObj.is(carousel.getFrontPanelObj())) {
 			// stop all animations on this panel so that a new
 			// animation can begin immediately
-			jQueryPanelObj.stop(true, true).toggleClass('glowing', 400);
+			$panelObj.stop(true, true).toggleClass('glowing', 400);
 		}
 	};
 	
 	var setupProjectDialog = function(projectInfo) {
-		var dialogObj = $('#project_info_dialog');
+		var $dialogObj = $('#project_info_dialog');
 		
-		var projectImage = dialogObj.find('#dialog_project_pic');
-		projectImage.attr({
+		var $projectImage = $dialogObj.find('#dialog_project_pic');
+		$projectImage.attr({
 			src: projectInfo.image,
 			alt: projectInfo.name + " image"
 		});
 		
-		var projectName = dialogObj.find('#dialog_project_name');
-		projectName.text(projectInfo.name);
+		var $projectName = $dialogObj.find('#dialog_project_name');
+		$projectName.text(projectInfo.name);
 
-		var projectDesc = dialogObj.find('#dialog_project_description');
-		projectDesc.text(projectInfo.description);
+		var $projectDesc = $dialogObj.find('#dialog_project_description');
+		$projectDesc.text(projectInfo.description);
 		
 		// Store the URL of the project on this button for later use. When
 		// the user clicks the button, that URL will open in a new window.
-		var projectButton = dialogObj.find('#dialog_open_project_button');
-		projectButton.data('projectlink', projectInfo.link);
+		var $projectButton = $dialogObj.find('#dialog_open_project_button');
+		$projectButton.data('projectlink', projectInfo.link);
 	};
 	
 	var showModalDialog = function(show) {
