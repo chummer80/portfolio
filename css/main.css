@@ -92,6 +92,7 @@ body {
 }
 
 .dialog_button {
+	margin-top: 0.8rem;
 	background-color: white;
 	font-size: 2rem;
 	color: #499bea;
