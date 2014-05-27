@@ -1,15 +1,42 @@
 $(document).ready(function() {
 	
 	/******************
-	* Debug Helpers
+	* CONSTANTS
 	*******************/ 
 	var DEBUG = true;
 
-	var debug = function debug(message) {
-		if (DEBUG) {
-			console.log(message);
+	var COLORS = {
+		WHITE: {
+			r: 255,
+			g: 255,
+			b: 255		
+		},
+		GOLD: {
+			r: 255,
+			g: 215,
+			b: 0
+		},
+		RED: {
+			r: 200,
+			g: 0,
+			b: 0
+		},
+		SILVER: {
+			r: 192,
+			g: 192,
+			b: 192
 		}
-	};
+	}
+	
+	/******************
+	* VARS
+	*******************/ 
+	
+	var arrowObjects = {
+		left: {},
+		right: {}
+	}
+	
 	
 	/******************
 	* Project Info
@@ -84,9 +111,17 @@ $(document).ready(function() {
 		},
 	];
 
+
+	
 	/******************
 	* Utility Functions
 	*******************/ 
+	
+	var debug = function debug(message) {
+		if (DEBUG) {
+			console.log(message);
+		}
+	};
 	
 	var setProjectName = function(name) {
 		$('#project_name').text(name);
@@ -108,6 +143,10 @@ $(document).ready(function() {
 		
 		// set up the project info dialog now so it will be ready to show later.
 		setupProjectDialog(projectInfoArray[projectIndex]);
+		
+		// change arrow colors back to original state
+		changeCanvasColor(arrowObjects.left, COLORS.WHITE);
+		changeCanvasColor(arrowObjects.right, COLORS.WHITE);
 	};
 	
 	// Customize each panel with different project info
@@ -197,17 +236,38 @@ $(document).ready(function() {
 		}
 	};
 	
+	var changeCanvasColor = function(arrowData, color) {
+		var currentPixels = arrowData.context.getImageData(0, 0, arrowData.canvas.width, arrowData.canvas.height);
+		
+		// loop through all the pixels and change the color of each one
+		for (var i = 0, l = currentPixels.data.length; i < l; i += 4) {
+			// first check if this pixel's alpha is transparent or not. 
+			// ignore it if it's transparent
+			if (currentPixels.data[i + 3] > 0) {
+				// original pixels were white. change pixel data in this structure.
+				currentPixels.data[i] = arrowData.originalPixels.data[i] / 255 * color.r;
+                currentPixels.data[i + 1] = arrowData.originalPixels.data[i + 1] / 255 * color.g;
+                currentPixels.data[i + 2] = arrowData.originalPixels.data[i + 2] / 255 * color.b;
+			}
+		}
+		// put new pixel data into the canvas.
+		arrowData.context.putImageData(currentPixels, 0, 0);
+	};
+	
 	/**************************
 	* DOM Object Event Handlers
 	***************************/ 
 	
+	
 	$('#arrow_button_left').click(function() {
 		prepareForSpin();
+		changeCanvasColor(arrowObjects.left, COLORS.SILVER);
 		carousel.spinNext();
 	});
 	
 	$('#arrow_button_right').click(function() {
 		prepareForSpin();
+		changeCanvasColor(arrowObjects.right, COLORS.SILVER);
 		carousel.spinPrev();
 	});
 	
@@ -225,15 +285,13 @@ $(document).ready(function() {
 	* START
 	*******************/ 
 	
-	// initially hide the project info dialog
-	$('#project_info_dialog').hide();
-	
 	// Create and initialize the carousel
 	var carousel = new Carousel3d(projectInfoArray.length);
 	carousel.setTilt(-8);
 	carousel.setWidth(33, 'rem');
 	carousel.setHeight(22, 'rem');
 	carousel.setPanelWidthPercent(80);
+	carousel.setAnimCompleteCB(carouselAnimCompleteCB);
 	
 	// build the carousel container and panels
 	carousel.initialize(carouselPanelSetupCB);
@@ -242,7 +300,24 @@ $(document).ready(function() {
 	// Place it after the title, with 1 spacer div in between.
 	carousel.getJqueryObj().insertAfter($('#title_div + div.flex_spacer'));
 	
-	carousel.setAnimCompleteCB(carouselAnimCompleteCB);
 	
-	// window.setInterval(carousel.spinNext, 1000);
+	
+	// put arrow button images on the canvases
+	var controlDivHeight = $('#carousel_controls').innerHeight();
+	for (var side in arrowObjects) {
+		var img = $('#arrow_button_' + side + '_image').get(0);
+			
+		// scale canvas and image to fit height of the controls container
+		var scale = controlDivHeight / img.height;
+		arrowObjects[side].canvas = $('#arrow_button_' + side).get(0);
+		arrowObjects[side].canvas.width = img.width * scale;
+		arrowObjects[side].canvas.height = img.height * scale;
+		arrowObjects[side].context = arrowObjects[side].canvas.getContext('2d');
+		
+		// draw image on canvas
+		arrowObjects[side].context.drawImage(img, 0, 0, arrowObjects[side].canvas.width, arrowObjects[side].canvas.height);
+		
+		// store original pixel data so color can be changed later
+		arrowObjects[side].originalPixels = arrowObjects[side].context.getImageData(0, 0, arrowObjects[side].canvas.width, arrowObjects[side].canvas.height);
+	}
 });

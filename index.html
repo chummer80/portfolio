@@ -7,8 +7,8 @@
 	<link rel="stylesheet" href="css/main.css">
 </head>
 <body>
-	<div id="dim_page_layer"></div>
-	<div id="project_info_dialog" class="dialog">
+	<div id="dim_page_layer" class="hidden"></div>
+	<div id="project_info_dialog" class="dialog hidden">
 		<img id="dialog_project_pic" src="//:0" alt="">
 		<div id="dialog_project_name" class="title"></div>
 		<div id="dialog_project_description"></div>
@@ -21,11 +21,19 @@
 		<div class="flex_spacer"></div>
 		<div class="flex_spacer"></div>
 		<div id="carousel_controls">
-			<img id="arrow_button_left" class="arrow_button" src="images/arrow_left.png" alt="left arrow button">
+			<canvas id="arrow_button_left" class="arrow_button">
+				<img id="arrow_button_left" class="arrow_button" src="images/arrow_left.png" alt="left arrow button">
+			</canvas>
 			<p id="project_name"></p>
-			<img id="arrow_button_right" class="arrow_button" src="images/arrow_right.png" alt="right arrow button">
+			<canvas id="arrow_button_right" class="arrow_button">
+				<img id="arrow_button_right" class="arrow_button" src="images/arrow_right.png" alt="right arrow button">
+			</canvas>
 		</div>
 		<div class="flex_spacer"></div>
+	</div>
+	<div id="canvas_images" class="hidden">
+		<img id="arrow_button_left_image" src="images/arrow_left.png" alt="left arrow button">
+		<img id="arrow_button_right_image" src="images/arrow_right.png" alt="right arrow button">
 	</div>
 	<script src="http://code.jquery.com/jquery-latest.min.js"></script>
 	<script src="http://code.jquery.com/ui/1.10.4/jquery-ui.min.js"></script>
