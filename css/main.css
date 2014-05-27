@@ -155,10 +155,12 @@ body {
 }
 
 .arrow_button {
-	/* height: 100%;	 */
 	flex: none;
 }
 
+.full_height {
+	height: 100%;
+}
 
 #project_name {
 	font-family: BebasNeue;

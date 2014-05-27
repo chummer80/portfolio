@@ -32,7 +32,7 @@ $(document).ready(function() {
 	* VARS
 	*******************/ 
 	
-	var arrowObjects = {
+	var arrowData = {
 		left: {},
 		right: {}
 	}
@@ -145,8 +145,13 @@ $(document).ready(function() {
 		setupProjectDialog(projectInfoArray[projectIndex]);
 		
 		// change arrow colors back to original state
-		changeCanvasColor(arrowObjects.left, COLORS.WHITE);
-		changeCanvasColor(arrowObjects.right, COLORS.WHITE);
+		// for (var side in arrowData) {
+			// var arrowColor = COLORS.WHITE;
+			// if (arrowData[side].mouseHover) {
+				// arrowColor = COLORS.GOLD;
+			// }
+			// changeCanvasColor(arrowData[side], arrowColor);
+		// }
 	};
 	
 	// Customize each panel with different project info
@@ -254,22 +259,82 @@ $(document).ready(function() {
 		arrowData.context.putImageData(currentPixels, 0, 0);
 	};
 	
+	var isMouseOverArrow = function(mouseX, mouseY, side) {
+		var pixel = arrowData[side].context.getImageData(mouseX, mouseY, 1, 1).data;
+		
+		// check alpha value. if alpha is more than zero, mouse is over the arrow.
+		if (pixel[3] > 0) {
+			return true;
+		}
+		else {
+			return false;
+		}
+	};
+	
+	var updateHoverState = function(side) {
+		var arrowColor = COLORS.WHITE;
+		if (arrowData[side].mouseHover) {
+			arrowColor = COLORS.GOLD;
+		}
+		changeCanvasColor(arrowData[side], arrowColor);
+	};
+
 	/**************************
 	* DOM Object Event Handlers
 	***************************/ 
 	
 	
-	$('#arrow_button_left').click(function() {
-		prepareForSpin();
-		changeCanvasColor(arrowObjects.left, COLORS.SILVER);
-		carousel.spinNext();
-	});
-	
-	$('#arrow_button_right').click(function() {
-		prepareForSpin();
-		changeCanvasColor(arrowObjects.right, COLORS.SILVER);
-		carousel.spinPrev();
-	});
+	$('.arrow_button')
+		.mousemove(function(eventData) {
+			var side = $(this).data('side');
+			var offset = $(this).offset();
+			// get the mouse position within the canvas element
+			var mouseX = eventData.pageX - offset.left;
+			var mouseY = eventData.pageY - offset.top;
+			var oldHoverState = arrowData[side].mouseHover;
+			arrowData[side].mouseHover = isMouseOverArrow(mouseX, mouseY, side) ? true : false;
+			if (oldHoverState !== arrowData[side].mouseHover) {
+				debug("mousemove: " + side + " hover state changed: " + arrowData[side].mouseHover);
+				arrowData[side].mouseDown = false;
+				updateHoverState(side);
+			}
+		})
+		// When moving mouse off the canvas quickly, mousemove sometimes doesn't fire.
+		// That's why the mouseleave event handler is needed.
+		.mouseleave(function() {
+			var side = $(this).data('side');
+			var oldHoverState = arrowData[side].mouseHover;
+			arrowData[side].mouseHover = false;
+			if (oldHoverState === true) {
+				debug("mouseleave: " + side + " hover state changed: " + arrowData[side].mouseHover);
+				arrowData[side].mouseDown = false;
+				updateHoverState(side);
+			}
+		})
+		.mousedown(function() {
+			var side = $(this).data('side');
+			// only register click if hovering over the arrow image
+			if (arrowData[side].mouseHover) {
+				arrowData[side].mouseDown = true;
+				changeCanvasColor(arrowData[side], COLORS.SILVER);
+			}
+		})
+		.mouseup(function() {
+			var side = $(this).data('side');
+			// Only handle the case where the mouse down and up events both happened
+			// while hovering over the arrow. Other cases are handled by mousemove
+			if (arrowData[side].mouseHover && arrowData[side].mouseDown) {
+				arrowData[side].mouseDown = false;
+				changeCanvasColor(arrowData[side], COLORS.GOLD);
+				prepareForSpin();
+				if (side === 'left') {
+					carousel.spinNext();
+				}
+				else {
+					carousel.spinPrev();
+				}
+			}
+		});
 	
 	$('#dialog_back_button').click(function() {
 		// close dialog, remove dimming layer
@@ -304,20 +369,20 @@ $(document).ready(function() {
 	
 	// put arrow button images on the canvases
 	var controlDivHeight = $('#carousel_controls').innerHeight();
-	for (var side in arrowObjects) {
+	for (var side in arrowData) {
 		var img = $('#arrow_button_' + side + '_image').get(0);
 			
 		// scale canvas and image to fit height of the controls container
 		var scale = controlDivHeight / img.height;
-		arrowObjects[side].canvas = $('#arrow_button_' + side).get(0);
-		arrowObjects[side].canvas.width = img.width * scale;
-		arrowObjects[side].canvas.height = img.height * scale;
-		arrowObjects[side].context = arrowObjects[side].canvas.getContext('2d');
+		arrowData[side].canvas = $('#arrow_button_' + side).get(0);
+		arrowData[side].canvas.width = img.width * scale;
+		arrowData[side].canvas.height = img.height * scale;
+		arrowData[side].context = arrowData[side].canvas.getContext('2d');
 		
 		// draw image on canvas
-		arrowObjects[side].context.drawImage(img, 0, 0, arrowObjects[side].canvas.width, arrowObjects[side].canvas.height);
+		arrowData[side].context.drawImage(img, 0, 0, arrowData[side].canvas.width, arrowData[side].canvas.height);
 		
 		// store original pixel data so color can be changed later
-		arrowObjects[side].originalPixels = arrowObjects[side].context.getImageData(0, 0, arrowObjects[side].canvas.width, arrowObjects[side].canvas.height);
+		arrowData[side].originalPixels = arrowData[side].context.getImageData(0, 0, arrowData[side].canvas.width, arrowData[side].canvas.height);
 	}
 });
