@@ -1,15 +1,42 @@
 $(document).ready(function() {
 	
 	/******************
-	* Debug Helpers
+	* CONSTANTS
 	*******************/ 
 	var DEBUG = false;
 
-	var debug = function debug(message) {
-		if (DEBUG) {
-			console.log(message);
+	var COLORS = {
+		WHITE: {
+			r: 255,
+			g: 255,
+			b: 255		
+		},
+		GOLD: {
+			r: 255,
+			g: 215,
+			b: 0
+		},
+		RED: {
+			r: 200,
+			g: 0,
+			b: 0
+		},
+		SILVER: {
+			r: 192,
+			g: 192,
+			b: 192
 		}
-	};
+	}
+	
+	/******************
+	* VARS
+	*******************/ 
+	
+	var arrowData = {
+		left: {},
+		right: {}
+	}
+	
 	
 	/******************
 	* Project Info
@@ -84,9 +111,17 @@ $(document).ready(function() {
 		},
 	];
 
+
+	
 	/******************
 	* Utility Functions
 	*******************/ 
+	
+	var debug = function debug(message) {
+		if (DEBUG) {
+			console.log(message);
+		}
+	};
 	
 	var setProjectName = function(name) {
 		$('#project_name').text(name);
@@ -103,11 +138,20 @@ $(document).ready(function() {
 		setProjectName(projectName);
 		
 		// enable hyperlink for this panel only.
-		// var frontPanelObj = carousel.getFrontPanelObj();
-		// frontPanelObj.find('a').show();
+		// var $frontPanelObj = carousel.getFrontPanelObj();
+		// $frontPanelObj.find('a').show();
 		
 		// set up the project info dialog now so it will be ready to show later.
 		setupProjectDialog(projectInfoArray[projectIndex]);
+		
+		// change arrow colors back to original state
+		// for (var side in arrowData) {
+			// var arrowColor = COLORS.WHITE;
+			// if (arrowData[side].mouseHover) {
+				// arrowColor = COLORS.GOLD;
+			// }
+			// changeCanvasColor(arrowData[side], arrowColor);
+		// }
 	};
 	
 	// Customize each panel with different project info
@@ -123,7 +167,7 @@ $(document).ready(function() {
 		});
 		
 		// create a link on the panel that will take the user to the project.
-		var projectLink = $('<a>').attr({
+		var $projectLink = $('<a>').attr({
 			href: projectInfoArray[panelNum-1].link,
 			target: '_blank'
 		});
@@ -132,15 +176,15 @@ $(document).ready(function() {
 		$('<div>').css({
 			width: '100%',
 			height: '100%'
-		}).appendTo(projectLink);
+		}).appendTo($projectLink);
 		
 		// Set up mouse events to make the front panel glow when hovered over.
 		panelObj.mouseenter(carouselPanelToggleGlow)
 		panelObj.mouseleave(carouselPanelToggleGlow);
 		
-		projectLink.appendTo(panelObj);
+		$projectLink.appendTo(panelObj);
 		// the link is disabled by default
-		projectLink.hide();
+		$projectLink.hide();
 		
 		// Set up events so that clicking this panel opens a modal dialog
 		panelObj.click(function() {
@@ -152,38 +196,38 @@ $(document).ready(function() {
 	
 	var prepareForSpin = function() {
 		setProjectName("");
-		var frontPanelObj = carousel.getFrontPanelObj();
-		frontPanelObj.find('a').hide();
+		var $frontPanelObj = carousel.getFrontPanelObj();
+		$frontPanelObj.find('a').hide();
 	};
 	
 	var carouselPanelToggleGlow = function() {
-		var jQueryPanelObj = $(this);
-		if (jQueryPanelObj.is(carousel.getFrontPanelObj())) {
+		var $panelObj = $(this);
+		if ($panelObj.is(carousel.getFrontPanelObj())) {
 			// stop all animations on this panel so that a new
 			// animation can begin immediately
-			jQueryPanelObj.stop(true, true).toggleClass('glowing', 400);
+			$panelObj.stop(true, true).toggleClass('glowing', 400);
 		}
 	};
 	
 	var setupProjectDialog = function(projectInfo) {
-		var dialogObj = $('#project_info_dialog');
+		var $dialogObj = $('#project_info_dialog');
 		
-		var projectImage = dialogObj.find('#dialog_project_pic');
-		projectImage.attr({
+		var $projectImage = $dialogObj.find('#dialog_project_pic');
+		$projectImage.attr({
 			src: projectInfo.image,
 			alt: projectInfo.name + " image"
 		});
 		
-		var projectName = dialogObj.find('#dialog_project_name');
-		projectName.text(projectInfo.name);
+		var $projectName = $dialogObj.find('#dialog_project_name');
+		$projectName.text(projectInfo.name);
 
-		var projectDesc = dialogObj.find('#dialog_project_description');
-		projectDesc.text(projectInfo.description);
+		var $projectDesc = $dialogObj.find('#dialog_project_description');
+		$projectDesc.text(projectInfo.description);
 		
 		// Store the URL of the project on this button for later use. When
 		// the user clicks the button, that URL will open in a new window.
-		var projectButton = dialogObj.find('#dialog_open_project_button');
-		projectButton.data('projectlink', projectInfo.link);
+		var $projectButton = $dialogObj.find('#dialog_open_project_button');
+		$projectButton.data('projectlink', projectInfo.link);
 	};
 	
 	var showModalDialog = function(show) {
@@ -197,19 +241,100 @@ $(document).ready(function() {
 		}
 	};
 	
+	var changeCanvasColor = function(arrowData, color) {
+		var currentPixels = arrowData.context.getImageData(0, 0, arrowData.canvas.width, arrowData.canvas.height);
+		
+		// loop through all the pixels and change the color of each one
+		for (var i = 0, l = currentPixels.data.length; i < l; i += 4) {
+			// first check if this pixel's alpha is transparent or not. 
+			// ignore it if it's transparent
+			if (currentPixels.data[i + 3] > 0) {
+				// original pixels were white. change pixel data in this structure.
+				currentPixels.data[i] = arrowData.originalPixels.data[i] / 255 * color.r;
+                currentPixels.data[i + 1] = arrowData.originalPixels.data[i + 1] / 255 * color.g;
+                currentPixels.data[i + 2] = arrowData.originalPixels.data[i + 2] / 255 * color.b;
+			}
+		}
+		// put new pixel data into the canvas.
+		arrowData.context.putImageData(currentPixels, 0, 0);
+	};
+	
+	var isMouseOverArrow = function(mouseX, mouseY, side) {
+		var pixel = arrowData[side].context.getImageData(mouseX, mouseY, 1, 1).data;
+		
+		// check alpha value. if alpha is more than zero, mouse is over the arrow.
+		if (pixel[3] > 0) {
+			return true;
+		}
+		else {
+			return false;
+		}
+	};
+	
+	var updateHoverState = function(side) {
+		var arrowColor = COLORS.WHITE;
+		if (arrowData[side].mouseHover) {
+			arrowColor = COLORS.GOLD;
+		}
+		changeCanvasColor(arrowData[side], arrowColor);
+	};
+
 	/**************************
 	* DOM Object Event Handlers
 	***************************/ 
 	
-	$('#arrow_button_left').click(function() {
-		prepareForSpin();
-		carousel.spinNext();
-	});
 	
-	$('#arrow_button_right').click(function() {
-		prepareForSpin();
-		carousel.spinPrev();
-	});
+	$('.arrow_button')
+		.mousemove(function(eventData) {
+			var side = $(this).data('side');
+			var offset = $(this).offset();
+			// get the mouse position within the canvas element
+			var mouseX = eventData.pageX - offset.left;
+			var mouseY = eventData.pageY - offset.top;
+			var oldHoverState = arrowData[side].mouseHover;
+			arrowData[side].mouseHover = isMouseOverArrow(mouseX, mouseY, side) ? true : false;
+			if (oldHoverState !== arrowData[side].mouseHover) {
+				debug("mousemove: " + side + " hover state changed: " + arrowData[side].mouseHover);
+				arrowData[side].mouseDown = false;
+				updateHoverState(side);
+			}
+		})
+		// When moving mouse off the canvas quickly, mousemove sometimes doesn't fire.
+		// That's why the mouseleave event handler is needed.
+		.mouseleave(function() {
+			var side = $(this).data('side');
+			var oldHoverState = arrowData[side].mouseHover;
+			arrowData[side].mouseHover = false;
+			if (oldHoverState === true) {
+				debug("mouseleave: " + side + " hover state changed: " + arrowData[side].mouseHover);
+				arrowData[side].mouseDown = false;
+				updateHoverState(side);
+			}
+		})
+		.mousedown(function() {
+			var side = $(this).data('side');
+			// only register click if hovering over the arrow image
+			if (arrowData[side].mouseHover) {
+				arrowData[side].mouseDown = true;
+				changeCanvasColor(arrowData[side], COLORS.SILVER);
+			}
+		})
+		.mouseup(function() {
+			var side = $(this).data('side');
+			// Only handle the case where the mouse down and up events both happened
+			// while hovering over the arrow. Other cases are handled by mousemove
+			if (arrowData[side].mouseHover && arrowData[side].mouseDown) {
+				arrowData[side].mouseDown = false;
+				changeCanvasColor(arrowData[side], COLORS.GOLD);
+				prepareForSpin();
+				if (side === 'left') {
+					carousel.spinNext();
+				}
+				else {
+					carousel.spinPrev();
+				}
+			}
+		});
 	
 	$('#dialog_back_button').click(function() {
 		// close dialog, remove dimming layer
@@ -225,15 +350,13 @@ $(document).ready(function() {
 	* START
 	*******************/ 
 	
-	// initially hide the project info dialog
-	$('#project_info_dialog').hide();
-	
 	// Create and initialize the carousel
 	var carousel = new Carousel3d(projectInfoArray.length);
 	carousel.setTilt(-8);
 	carousel.setWidth(33, 'rem');
 	carousel.setHeight(22, 'rem');
 	carousel.setPanelWidthPercent(80);
+	carousel.setAnimCompleteCB(carouselAnimCompleteCB);
 	
 	// build the carousel container and panels
 	carousel.initialize(carouselPanelSetupCB);
@@ -242,7 +365,24 @@ $(document).ready(function() {
 	// Place it after the title, with 1 spacer div in between.
 	carousel.getJqueryObj().insertAfter($('#title_div + div.flex_spacer'));
 	
-	carousel.setAnimCompleteCB(carouselAnimCompleteCB);
 	
-	// window.setInterval(carousel.spinNext, 1000);
+	
+	// put arrow button images on the canvases
+	var controlDivHeight = $('#carousel_controls').innerHeight();
+	for (var side in arrowData) {
+		var img = $('#arrow_button_' + side + '_image').get(0);
+			
+		// scale canvas and image to fit height of the controls container
+		var scale = controlDivHeight / img.height;
+		arrowData[side].canvas = $('#arrow_button_' + side).get(0);
+		arrowData[side].canvas.width = img.width * scale;
+		arrowData[side].canvas.height = img.height * scale;
+		arrowData[side].context = arrowData[side].canvas.getContext('2d');
+		
+		// draw image on canvas
+		arrowData[side].context.drawImage(img, 0, 0, arrowData[side].canvas.width, arrowData[side].canvas.height);
+		
+		// store original pixel data so color can be changed later
+		arrowData[side].originalPixels = arrowData[side].context.getImageData(0, 0, arrowData[side].canvas.width, arrowData[side].canvas.height);
+	}
 });

@@ -103,11 +103,11 @@ function Carousel3d (numPanels) {
 	**************************/ 
 	
 	// This container is just provides a 3D space for the carousel to exist
-	var containerObj = $('<div>');
+	var $containerObj = $('<div>');
 	// an object that contains the carousel panels
-	var carouselObj = $('<div>');
+	var $carouselObj = $('<div>');
 	// a jQuery collection of the <figure> elements that make up the carousel
-	var carouselPanels = $();
+	var $carouselPanels = $();
 	
 	var width = 20;
 	var widthUnits = 'rem';
@@ -142,7 +142,7 @@ function Carousel3d (numPanels) {
 		// Instead of using CSS transitions, use jQuery's animate() method with a
 		// step function to animate the carousel rotation.
 		animCount++;
-		carouselObj.animate({theta: theta}, {
+		$carouselObj.animate({theta: theta}, {
 			step: function(now, fx) {
 				var transformFn = translateFn + ' ' + tiltFn + ' ' + 'rotateY(' + now + 'deg)';
 				$(this).css({
@@ -168,7 +168,7 @@ function Carousel3d (numPanels) {
 	
 	this.initialize = function(panelSetupCB) {
 		// set CSS attributes for the container
-		containerObj.css({
+		$containerObj.css({
 			'-webkit-perspective': '2000px',
 			perspective: '2000px',
 			width: width + widthUnits,
@@ -176,9 +176,9 @@ function Carousel3d (numPanels) {
 			'margin-left': 'auto',
 			'margin-right': 'auto'
 		});
-		containerObj.addClass('carousel_container');
+		$containerObj.addClass('carousel_container');
 		
-		carouselObj.css({
+		$carouselObj.css({
 			// carousel width is what dictates the width of the panel. 
 			// A value less than 100% creates spaces between the panels.
 			width: panelWidthPercent + '%',
@@ -194,7 +194,7 @@ function Carousel3d (numPanels) {
 			// set a theta css property to be used for animation in spinCarousel()
 			theta: theta
 		});
-		carouselObj.addClass('carousel');
+		$carouselObj.addClass('carousel');
 		
 		spinCarousel();
 		
@@ -202,12 +202,12 @@ function Carousel3d (numPanels) {
 		var numElements = numPanels;
 		translateFn = 'translateZ(' + radius + widthUnits + ')';
 		var rotateFn = '';
-		var newPanel = null;
+		var $newPanel = null;
 		
 		for (var i = 0; i < numElements; i++) {
-			newPanel = $('<figure>');
+			$newPanel = $('<figure>');
 			rotateFn = 'rotateY(' + (360/numElements * i) + 'deg)';
-			newPanel.css({
+			$newPanel.css({
 				position: 'absolute',
 				width: '100%',
 				height: '100%',
@@ -219,21 +219,21 @@ function Carousel3d (numPanels) {
 				'-o-transform': rotateFn + ' ' + translateFn,
 				transform: rotateFn + ' ' + translateFn,
 			});
-			newPanel.addClass('carousel_panel');
+			$newPanel.addClass('carousel_panel');
 			
 			// check if a valid callback was provided. If it was, execute the setup
 			// callback to customize the panel.
 			if ($.type(panelSetupCB) === 'function') {
-				panelSetupCB(i + 1, newPanel);
+				panelSetupCB(i + 1, $newPanel);
 			}
 			
 			// append the new panel object to the carousel object
-			newPanel.appendTo(carouselObj);
+			$newPanel.appendTo($carouselObj);
 		}
 		
-		carouselPanels = carouselObj.children();
+		$carouselPanels = $carouselObj.children();
 		
-		carouselObj.appendTo(containerObj);
+		$carouselObj.appendTo($containerObj);
 	};
 	
 	this.setWidth = function(desiredWidth, units) {
@@ -258,7 +258,7 @@ function Carousel3d (numPanels) {
 		// carousel width is what dictates the width of the panel. 
 		// A value less than 100% creates spaces between the panels.
 		panelWidthPercent = desiredWidthPercent;
-		carouselObj.css('width', panelWidthPercent + '%');
+		$carouselObj.css('width', panelWidthPercent + '%');
 	}
 	
 	this.setAnimCompleteCB = function(callbackFn) {
@@ -270,7 +270,7 @@ function Carousel3d (numPanels) {
 	}
 	
 	this.getJqueryObj = function() {
-		return containerObj;
+		return $containerObj;
 	};
 	
 	this.getPanelObj = function(panelNum) {
@@ -283,7 +283,7 @@ function Carousel3d (numPanels) {
 		
 		var panelIndex = panelNum - 1;
 		
-		return carouselPanels.eq(panelIndex);
+		return $carouselPanels.eq(panelIndex);
 	};
 	
 	this.getFrontPanelObj = function() {
