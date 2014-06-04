@@ -1,170 +1,253 @@
-@font-face
-{
-	font-family: RapierZero;
-	src: url('../fonts/Rapier Zero.otf');
-}
-@font-face
-{
-	font-family: BebasNeue;
-	src: url('../fonts/BebasNeue.otf');
+/* line 17, ../../../../../../Ruby193/lib/ruby/gems/1.9.1/gems/compass-0.12.6/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed,
+figure, figcaption, footer, header, hgroup,
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font: inherit;
+  font-size: 100%;
+  vertical-align: baseline;
 }
 
+/* line 22, ../../../../../../Ruby193/lib/ruby/gems/1.9.1/gems/compass-0.12.6/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+html {
+  line-height: 1;
+}
+
+/* line 24, ../../../../../../Ruby193/lib/ruby/gems/1.9.1/gems/compass-0.12.6/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+ol, ul {
+  list-style: none;
+}
+
+/* line 26, ../../../../../../Ruby193/lib/ruby/gems/1.9.1/gems/compass-0.12.6/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+/* line 28, ../../../../../../Ruby193/lib/ruby/gems/1.9.1/gems/compass-0.12.6/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+caption, th, td {
+  text-align: left;
+  font-weight: normal;
+  vertical-align: middle;
+}
+
+/* line 30, ../../../../../../Ruby193/lib/ruby/gems/1.9.1/gems/compass-0.12.6/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+q, blockquote {
+  quotes: none;
+}
+/* line 103, ../../../../../../Ruby193/lib/ruby/gems/1.9.1/gems/compass-0.12.6/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+q:before, q:after, blockquote:before, blockquote:after {
+  content: "";
+  content: none;
+}
+
+/* line 32, ../../../../../../Ruby193/lib/ruby/gems/1.9.1/gems/compass-0.12.6/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+a img {
+  border: none;
+}
+
+/* line 116, ../../../../../../Ruby193/lib/ruby/gems/1.9.1/gems/compass-0.12.6/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section, summary {
+  display: block;
+}
+
+/* Supply fonts to be used on this page */
+@font-face {
+  font-family: "RapierZero";
+  src: url('../fonts/Rapier Zero.otf') format('opentype');
+}
+
+@font-face {
+  font-family: "BebasNeue";
+  src: url('../fonts/BebasNeue.otf') format('opentype');
+}
+
+/* color definitions */
+/* for debugging */
+/* line 17, ../sass/main.scss */
 * {
 	/* outline: 1px red solid; */
 }
 
+/* line 21, ../sass/main.scss */
+.full_height, html, body, #flex_container {
+  height: 100%;
+}
+
+/* line 25, ../sass/main.scss */
 .hidden {
-	display: none;
+  display: none;
 }
 
-html {
-	height: 100%;
-}
-
+/* line 33, ../sass/main.scss */
 body {
-	position: relative;
-	height: 100%;
-	width: 100%;
-	min-width: 80rem;
-	min-height: 47rem;
-	
-	background: #499bea; /* Old browsers */
-	background: -moz-linear-gradient(top,  #499bea 25%, #e8e8e8 50%, #499bea 75%); /* FF3.6+ */
-	background: -webkit-gradient(linear, left top, left bottom, color-stop(25%,#499bea), color-stop(50%,#e8e8e8), color-stop(75%,#499bea)); /* Chrome,Safari4+ */
-	background: -webkit-linear-gradient(top,  #499bea 25%,#e8e8e8 50%,#499bea 75%); /* Chrome10+,Safari5.1+ */
-	background: -o-linear-gradient(top,  #499bea 25%,#e8e8e8 50%,#499bea 75%); /* Opera 11.10+ */
-	background: -ms-linear-gradient(top,  #499bea 25%,#e8e8e8 50%,#499bea 75%); /* IE10+ */
-	background: linear-gradient(to bottom,  #499bea 25%,#e8e8e8 50%,#499bea 75%); /* W3C */
-	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#499bea', endColorstr='#499bea',GradientType=0 ); /* IE6-9 */	
+  position: relative;
+  width: 100%;
+  min-width: 80rem;
+  min-height: 47rem;
+  background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(25%, #499bea), color-stop(50%, #ffffff), color-stop(75%, #499bea));
+  background-image: -webkit-linear-gradient(#499bea 25%, #ffffff 50%, #499bea 75%);
+  background-image: -moz-linear-gradient(#499bea 25%, #ffffff 50%, #499bea 75%);
+  background-image: -o-linear-gradient(#499bea 25%, #ffffff 50%, #499bea 75%);
+  background-image: linear-gradient(#499bea 25%, #ffffff 50%, #499bea 75%);
 }
 
 /* full-page size, dark semi-transparent layer for a dim effect */
 /* Anything with a Z value higher than this will not be dimmed. */
+/* line 44, ../sass/main.scss */
 #dim_page_layer {
-	position: fixed;
-	top: 0;
-	bottom: 0;
-	left: 0;
-	right: 0;
-	background-color: black;
-	opacity: 0.7; /* Safari, Opera */
-	-moz-opacity:0.70; /* FireFox */
-	filter: alpha(opacity=70); /* IE */
-	z-index: 10;
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: black;
+  filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=70);
+  opacity: 0.7;
+  z-index: 10;
 }
 
+/* line 55, ../sass/main.scss */
 .dialog {
-	position: absolute;
-	top: 50%;
-	left: 45%;
-	-webkit-transform: translateX(-40%) translateY(-50%);
-	-moz-transform: translateX(-40%) translateY(-50%);
-	-ms-transform: translateX(-40%) translateY(-50%);
-	transform: translateX(-40%) translateY(-50%);
-	z-index: 20;
+  position: absolute;
+  top: 50%;
+  left: 45%;
+  -webkit-transform: translate(-40%, -50%);
+  -moz-transform: translate(-40%, -50%);
+  -ms-transform: translate(-40%, -50%);
+  -o-transform: translate(-40%, -50%);
+  transform: translate(-40%, -50%);
+  z-index: 20;
 }
 
+/* line 63, ../sass/main.scss */
+.panel-appearance, #project_info_dialog, .carousel_panel {
+  border-width: 5px;
+  border-style: solid;
+  border-color: black;
+  -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
+  -ms-border-radius: 10px;
+  -o-border-radius: 10px;
+  border-radius: 10px;
+  background-color: white;
+}
+
+/* line 71, ../sass/main.scss */
 #project_info_dialog {
-	border-width: 5px;
-	border-style: solid;
-	border-color: black;
-	border-radius: 10px;
-	background-color: white;
-	padding-left: 0.2rem;
-	padding-right: 0.2rem;
-	color: black;
-	text-align: center;
+  padding-left: 0.2rem;
+  padding-right: 0.2rem;
+  color: black;
+  text-align: center;
 }
 
+/* line 79, ../sass/main.scss */
 #dialog_project_pic {
-	height: 25rem;
+  height: 25rem;
 }
 
+/* line 83, ../sass/main.scss */
 #dialog_project_name {
-	font-family: BebasNeue;
-	font-size: 3.5rem;
+  font-family: BebasNeue;
+  font-size: 3.5rem;
 }
 
+/* line 88, ../sass/main.scss */
 #dialog_project_description {
-	font-family: Verdana, Geneva, sans-serif;
-	font-size: 1.5rem;
-	line-height: 120%;
+  font-family: Verdana, Geneva, sans-serif;
+  font-size: 1.5rem;
+  line-height: 120%;
 }
 
+/* line 94, ../sass/main.scss */
 .dialog_button {
-	background-color: white;
-	font-size: 2rem;
-	color: #499bea;
+  margin-top: 0.8rem;
+  background-color: white;
+  font-size: 2rem;
+  color: #499bea;
 }
 
+/* line 101, ../sass/main.scss */
 #flex_container {
-	height: 100%;
-	width: 80rem;
-	margin-left: auto;
-	margin-right: auto;
-	display: flex;
-	flex-direction: column;
-	flex-wrap: nowrap;
-	justify-content: center;
-	align-items: center;
+  width: 80rem;
+  margin-left: auto;
+  margin-right: auto;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  justify-content: center;
+  align-items: center;
 }
 
+/* line 113, ../sass/main.scss */
 #title_div {
-	text-align: center;
-	font-family: RapierZero;
-	font-size: 5rem;
-	color: white;
-	margin-top: 2rem;
-	
-	background: -webkit-linear-gradient(top, white 50%, silver 80%);
-	-webkit-background-clip: text;
-	-webkit-text-fill-color: transparent;
-	
+  text-align: center;
+  font-family: RapierZero;
+  font-size: 5rem;
+  color: white;
+  margin-top: 2rem;
+  /* color gradient on the text by making a background gradient behind transparent text */
+  background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(50%, #ffffff), color-stop(80%, #c0c0c0));
+  background-image: -webkit-linear-gradient(#ffffff 50%, #c0c0c0 80%);
+  background-image: -moz-linear-gradient(#ffffff 50%, #c0c0c0 80%);
+  background-image: -o-linear-gradient(#ffffff 50%, #c0c0c0 80%);
+  background-image: linear-gradient(#ffffff 50%, #c0c0c0 80%);
+  -webkit-background-clip: text;
+  -moz-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-fill-color: transparent;
 }
 
+/* line 127, ../sass/main.scss */
 .flex_spacer {
-	flex: auto;
+  flex: auto;
 }
 
-.carousel_container {
-}
-
-.carousel {
-}
-
-.carousel_panel {
-	border-width: 5px;
-	border-style: solid;
-	border-color: black;
-	border-radius: 10px;
-	background-color: white;
-}
-
+/* line 141, ../sass/main.scss */
 .carousel_panel.glowing {
-	border-color: gold;
+  border-color: gold;
 }
 
+/* line 145, ../sass/main.scss */
 #carousel_controls {
-	width: 70rem;
-	height: 6rem;
-	display: flex;
-	flex-direction: row;
-	flex-wrap: nowrap;
-	justify-content: space-between;
-	align-items: flex-end;
+  width: 70rem;
+  height: 6rem;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: space-between;
+  align-items: flex-end;
 }
 
+/* line 155, ../sass/main.scss */
 .arrow_button {
-	flex: none;
+  flex: none;
 }
 
-.full_height {
-	height: 100%;
+/* line 159, ../sass/main.scss */
+.nonselectable {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  user-select: none;
 }
 
+/* line 163, ../sass/main.scss */
 #project_name {
-	font-family: BebasNeue;
-	font-size: 3rem;
-	color: white;
-	text-align: center;
+  font-family: BebasNeue;
+  font-size: 3rem;
+  color: white;
+  text-align: center;
 }

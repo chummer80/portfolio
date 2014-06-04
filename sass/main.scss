@@ -1,0 +1,168 @@
+@import "base";
+
+/* Supply fonts to be used on this page */
+@include font-face("RapierZero", font-files("Rapier Zero.otf"));
+@include font-face("BebasNeue", font-files("BebasNeue.otf"));
+
+/* color definitions */
+$skyblue: #499bea;
+$primary-color: $skyblue;
+$secondary-color: white;
+$tertiary-color: silver;
+$trim-color: gold;
+$panel-background-color: white;
+$panel-border-color: black;
+
+/* for debugging */
+* {
+	outline: 1px red solid;
+}
+
+.full_height {
+	height: 100%;
+}
+
+.hidden {
+	display: none;
+}
+
+html {
+	@extend .full_height;
+}
+
+body {
+	position: relative;
+	@extend .full_height;
+	width: 100%;
+	min-width: 80rem;
+	min-height: 47rem;
+	@include background-image(linear-gradient($primary-color 25%, $secondary-color 50%, $primary-color 75%));
+}
+
+/* full-page size, dark semi-transparent layer for a dim effect */
+/* Anything with a Z value higher than this will not be dimmed. */
+#dim_page_layer {
+	position: fixed;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	background-color: black;
+	@include opacity(0.7);
+	z-index: 10;
+}
+
+.dialog {
+	position: absolute;
+ 	top: 50%;
+	left: 45%;
+	@include translate(-40%, -50%);
+	z-index: 20;
+}
+
+.panel-appearance {
+	border-width: 5px;
+	border-style: solid;
+	border-color: $panel-border-color;
+	@include border-radius(10px);
+	background-color: $panel-background-color;
+}
+
+#project_info_dialog {
+	@extend .panel-appearance;
+	padding-left: 0.2rem;
+	padding-right: 0.2rem;
+	color: black;
+	text-align: center;
+}
+
+#dialog_project_pic {
+	height: 25rem;
+}
+
+#dialog_project_name {
+	font-family: BebasNeue;
+	font-size: 3.5rem;
+}
+
+#dialog_project_description {
+	font-family: Verdana, Geneva, sans-serif;
+	font-size: 1.5rem;
+	line-height: 120%;
+}
+
+.dialog_button {
+	margin-top: 0.8rem;
+	background-color: $secondary-color;
+	font-size: 2rem;
+	color: $primary-color;
+}
+
+#flex_container {
+	@extend .full_height;
+	width: 80rem;
+	margin-left: auto;
+	margin-right: auto;
+	display: flex;
+	flex-direction: column;
+	flex-wrap: nowrap;
+	justify-content: center;
+	align-items: center;
+}
+
+#title_div {
+	text-align: center;
+	font-family: RapierZero;
+	font-size: 5rem;
+	color: $secondary-color;	// fallback if text gradient doesn't work
+	margin-top: 2rem;
+	
+	/* color gradient on the text by making a background gradient behind transparent text */
+	@include background-image(linear-gradient($secondary-color 50%, $tertiary-color 80%));
+	@include background-clip(text);
+	-webkit-text-fill-color: transparent;
+	text-fill-color: transparent;
+}
+
+.flex_spacer {
+	flex: auto;
+}
+
+.carousel_container {
+}
+
+.carousel {
+}
+
+.carousel_panel {
+	@extend .panel-appearance;
+}
+
+.carousel_panel.glowing {
+	border-color: $trim-color;
+}
+
+#carousel_controls {
+	width: 70rem;
+	height: 6rem;
+	display: flex;
+	flex-direction: row;
+	flex-wrap: nowrap;
+	justify-content: space-between;
+	align-items: flex-end;
+}
+
+.arrow_button {
+	flex: none;
+}
+
+.nonselectable {
+	@include user-select(none);
+}
+
+#project_name {
+	font-family: BebasNeue;
+	font-size: 3rem;
+	color: $secondary-color;
+	text-align: center;
+}
