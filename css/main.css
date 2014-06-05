@@ -1,4 +1,4 @@
-/* line 17, ../../../../../../Ruby193/lib/ruby/gems/1.9.1/gems/compass-0.12.6/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+/* line 5, ../../../../../../Ruby193/lib/ruby/gems/1.9.1/gems/compass-core-1.0.0.alpha.19/stylesheets/compass/reset/_utilities.scss */
 html, body, div, span, applet, object, iframe,
 h1, h2, h3, h4, h5, h6, p, blockquote, pre,
 a, abbr, acronym, address, big, cite, code,
@@ -20,93 +20,89 @@ time, mark, audio, video {
   vertical-align: baseline;
 }
 
-/* line 22, ../../../../../../Ruby193/lib/ruby/gems/1.9.1/gems/compass-0.12.6/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+/* line 22, ../../../../../../Ruby193/lib/ruby/gems/1.9.1/gems/compass-core-1.0.0.alpha.19/stylesheets/compass/reset/_utilities.scss */
 html {
   line-height: 1;
 }
 
-/* line 24, ../../../../../../Ruby193/lib/ruby/gems/1.9.1/gems/compass-0.12.6/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+/* line 24, ../../../../../../Ruby193/lib/ruby/gems/1.9.1/gems/compass-core-1.0.0.alpha.19/stylesheets/compass/reset/_utilities.scss */
 ol, ul {
   list-style: none;
 }
 
-/* line 26, ../../../../../../Ruby193/lib/ruby/gems/1.9.1/gems/compass-0.12.6/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+/* line 26, ../../../../../../Ruby193/lib/ruby/gems/1.9.1/gems/compass-core-1.0.0.alpha.19/stylesheets/compass/reset/_utilities.scss */
 table {
   border-collapse: collapse;
   border-spacing: 0;
 }
 
-/* line 28, ../../../../../../Ruby193/lib/ruby/gems/1.9.1/gems/compass-0.12.6/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+/* line 28, ../../../../../../Ruby193/lib/ruby/gems/1.9.1/gems/compass-core-1.0.0.alpha.19/stylesheets/compass/reset/_utilities.scss */
 caption, th, td {
   text-align: left;
   font-weight: normal;
   vertical-align: middle;
 }
 
-/* line 30, ../../../../../../Ruby193/lib/ruby/gems/1.9.1/gems/compass-0.12.6/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+/* line 30, ../../../../../../Ruby193/lib/ruby/gems/1.9.1/gems/compass-core-1.0.0.alpha.19/stylesheets/compass/reset/_utilities.scss */
 q, blockquote {
   quotes: none;
 }
-/* line 103, ../../../../../../Ruby193/lib/ruby/gems/1.9.1/gems/compass-0.12.6/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+/* line 103, ../../../../../../Ruby193/lib/ruby/gems/1.9.1/gems/compass-core-1.0.0.alpha.19/stylesheets/compass/reset/_utilities.scss */
 q:before, q:after, blockquote:before, blockquote:after {
   content: "";
   content: none;
 }
 
-/* line 32, ../../../../../../Ruby193/lib/ruby/gems/1.9.1/gems/compass-0.12.6/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+/* line 32, ../../../../../../Ruby193/lib/ruby/gems/1.9.1/gems/compass-core-1.0.0.alpha.19/stylesheets/compass/reset/_utilities.scss */
 a img {
   border: none;
 }
 
-/* line 116, ../../../../../../Ruby193/lib/ruby/gems/1.9.1/gems/compass-0.12.6/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
-article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section, summary {
+/* line 116, ../../../../../../Ruby193/lib/ruby/gems/1.9.1/gems/compass-core-1.0.0.alpha.19/stylesheets/compass/reset/_utilities.scss */
+article, aside, details, figcaption, figure, footer, header, hgroup, main, menu, nav, section, summary {
   display: block;
 }
 
 /* Supply fonts to be used on this page */
 @font-face {
   font-family: "RapierZero";
-  src: url('../fonts/Rapier Zero.otf') format('opentype');
+  src: url('../fonts/Rapier Zero.otf?1400540480') format('opentype');
 }
-
 @font-face {
   font-family: "BebasNeue";
-  src: url('../fonts/BebasNeue.otf') format('opentype');
+  src: url('../fonts/BebasNeue.otf?1400591397') format('opentype');
 }
-
 /* color definitions */
 /* for debugging */
-/* line 17, ../sass/main.scss */
+/* line 5, ../sass/main.scss */
 * {
   outline: 1px red solid;
 }
 
-/* line 21, ../sass/main.scss */
+/* line 9, ../sass/main.scss */
 .full_height, html, body, #flex_container {
   height: 100%;
 }
 
-/* line 25, ../sass/main.scss */
+/* line 13, ../sass/main.scss */
 .hidden {
   display: none;
 }
 
-/* line 33, ../sass/main.scss */
+/* line 21, ../sass/main.scss */
 body {
   position: relative;
   width: 100%;
   min-width: 80rem;
   min-height: 47rem;
-  background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(25%, #499bea), color-stop(50%, #ffffff), color-stop(75%, #499bea));
-  background-image: -webkit-linear-gradient(#499bea 25%, #ffffff 50%, #499bea 75%);
   background-image: -moz-linear-gradient(#499bea 25%, #ffffff 50%, #499bea 75%);
-  background-image: -o-linear-gradient(#499bea 25%, #ffffff 50%, #499bea 75%);
+  background-image: -webkit-linear-gradient(#499bea 25%, #ffffff 50%, #499bea 75%);
   background-image: linear-gradient(#499bea 25%, #ffffff 50%, #499bea 75%);
 }
 
 /* full-page size, dark semi-transparent layer for a dim effect */
 /* Anything with a Z value higher than this will not be dimmed. */
-/* line 44, ../sass/main.scss */
+/* line 32, ../sass/main.scss */
 #dim_page_layer {
   position: fixed;
   top: 0;
@@ -119,33 +115,30 @@ body {
   z-index: 10;
 }
 
-/* line 55, ../sass/main.scss */
+/* line 43, ../sass/main.scss */
 .dialog {
   position: absolute;
   top: 50%;
   left: 45%;
-  -webkit-transform: translate(-40%, -50%);
   -moz-transform: translate(-40%, -50%);
   -ms-transform: translate(-40%, -50%);
-  -o-transform: translate(-40%, -50%);
+  -webkit-transform: translate(-40%, -50%);
   transform: translate(-40%, -50%);
   z-index: 20;
 }
 
-/* line 63, ../sass/main.scss */
+/* line 51, ../sass/main.scss */
 .panel-appearance, #project_info_dialog, .carousel_panel {
   border-width: 5px;
   border-style: solid;
   border-color: black;
-  -webkit-border-radius: 10px;
   -moz-border-radius: 10px;
-  -ms-border-radius: 10px;
-  -o-border-radius: 10px;
+  -webkit-border-radius: 10px;
   border-radius: 10px;
   background-color: white;
 }
 
-/* line 71, ../sass/main.scss */
+/* line 59, ../sass/main.scss */
 #project_info_dialog {
   padding-left: 0.2rem;
   padding-right: 0.2rem;
@@ -153,25 +146,25 @@ body {
   text-align: center;
 }
 
-/* line 79, ../sass/main.scss */
+/* line 67, ../sass/main.scss */
 #dialog_project_pic {
   height: 25rem;
 }
 
-/* line 83, ../sass/main.scss */
+/* line 71, ../sass/main.scss */
 #dialog_project_name {
   font-family: BebasNeue;
   font-size: 3.5rem;
 }
 
-/* line 88, ../sass/main.scss */
+/* line 76, ../sass/main.scss */
 #dialog_project_description {
   font-family: Verdana, Geneva, sans-serif;
   font-size: 1.5rem;
   line-height: 120%;
 }
 
-/* line 94, ../sass/main.scss */
+/* line 82, ../sass/main.scss */
 .dialog_button {
   margin-top: 0.8rem;
   background-color: white;
@@ -179,7 +172,7 @@ body {
   color: #499bea;
 }
 
-/* line 101, ../sass/main.scss */
+/* line 89, ../sass/main.scss */
 #flex_container {
   width: 80rem;
   margin-left: auto;
@@ -191,7 +184,7 @@ body {
   align-items: center;
 }
 
-/* line 113, ../sass/main.scss */
+/* line 101, ../sass/main.scss */
 #title_div {
   text-align: center;
   font-family: RapierZero;
@@ -199,29 +192,28 @@ body {
   color: white;
   margin-top: 2rem;
   /* color gradient on the text by making a background gradient behind transparent text */
-  background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(50%, #ffffff), color-stop(80%, #c0c0c0));
-  background-image: -webkit-linear-gradient(#ffffff 50%, #c0c0c0 80%);
   background-image: -moz-linear-gradient(#ffffff 50%, #c0c0c0 80%);
-  background-image: -o-linear-gradient(#ffffff 50%, #c0c0c0 80%);
+  background-image: -webkit-linear-gradient(#ffffff 50%, #c0c0c0 80%);
   background-image: linear-gradient(#ffffff 50%, #c0c0c0 80%);
-  -webkit-background-clip: text;
   -moz-background-clip: text;
+  -o-background-clip: text;
+  -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
   text-fill-color: transparent;
 }
 
-/* line 127, ../sass/main.scss */
+/* line 115, ../sass/main.scss */
 .flex_spacer {
   flex: auto;
 }
 
-/* line 141, ../sass/main.scss */
+/* line 129, ../sass/main.scss */
 .carousel_panel.glowing {
   border-color: gold;
 }
 
-/* line 145, ../sass/main.scss */
+/* line 133, ../sass/main.scss */
 #carousel_controls {
   width: 70rem;
   height: 6rem;
@@ -232,19 +224,20 @@ body {
   align-items: flex-end;
 }
 
-/* line 155, ../sass/main.scss */
+/* line 143, ../sass/main.scss */
 .arrow_button {
   flex: none;
 }
 
-/* line 159, ../sass/main.scss */
+/* line 147, ../sass/main.scss */
 .nonselectable {
+  -moz-user-select: -moz-none;
+  -ms-user-select: none;
   -webkit-user-select: none;
-  -moz-user-select: none;
   user-select: none;
 }
 
-/* line 163, ../sass/main.scss */
+/* line 151, ../sass/main.scss */
 #project_name {
   font-family: BebasNeue;
   font-size: 3rem;
