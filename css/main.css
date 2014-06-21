@@ -63,7 +63,6 @@ article, aside, details, figcaption, figure, footer, header, hgroup, main, menu,
   display: block;
 }
 
-/* Supply fonts to be used on this page */
 @font-face {
   font-family: "RapierZero";
   src: url('../fonts/Rapier Zero.otf?1400540480') format('opentype');
@@ -72,15 +71,13 @@ article, aside, details, figcaption, figure, footer, header, hgroup, main, menu,
   font-family: "BebasNeue";
   src: url('../fonts/BebasNeue.otf?1400591397') format('opentype');
 }
-/* color definitions */
-/* for debugging */
 /* line 5, ../sass/main.scss */
 * {
   outline: 1px red solid;
 }
 
 /* line 9, ../sass/main.scss */
-.full_height, html, body, #flex_container {
+.full-height, html, body, #flex_container {
   height: 100%;
 }
 
@@ -91,58 +88,56 @@ article, aside, details, figcaption, figure, footer, header, hgroup, main, menu,
 
 /* line 21, ../sass/main.scss */
 body {
-  position: relative;
-  width: 100%;
-  min-width: 80rem;
-  min-height: 47rem;
   background-image: -moz-linear-gradient(#499bea 25%, #ffffff 50%, #499bea 75%);
   background-image: -webkit-linear-gradient(#499bea 25%, #ffffff 50%, #499bea 75%);
   background-image: linear-gradient(#499bea 25%, #ffffff 50%, #499bea 75%);
+  min-height: 47rem;
+  min-width: 80rem;
+  position: relative;
+  width: 100%;
 }
 
-/* full-page size, dark semi-transparent layer for a dim effect */
-/* Anything with a Z value higher than this will not be dimmed. */
 /* line 32, ../sass/main.scss */
 #dim_page_layer {
-  position: fixed;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  background-color: black;
   filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=70);
   opacity: 0.7;
+  background-color: black;
+  bottom: 0;
+  left: 0;
+  position: fixed;
+  right: 0;
+  top: 0;
   z-index: 10;
 }
 
 /* line 43, ../sass/main.scss */
 .dialog {
-  position: absolute;
-  top: 50%;
-  left: 45%;
   -moz-transform: translate(-40%, -50%);
   -ms-transform: translate(-40%, -50%);
   -webkit-transform: translate(-40%, -50%);
   transform: translate(-40%, -50%);
+  top: 50%;
+  left: 45%;
+  position: absolute;
   z-index: 20;
 }
 
 /* line 51, ../sass/main.scss */
 .panel-appearance, #project_info_dialog, .carousel_panel {
-  border-width: 5px;
-  border-style: solid;
-  border-color: black;
   -moz-border-radius: 10px;
   -webkit-border-radius: 10px;
   border-radius: 10px;
   background-color: white;
+  border-color: black;
+  border-style: solid;
+  border-width: 5px;
 }
 
 /* line 59, ../sass/main.scss */
 #project_info_dialog {
-  padding-left: 0.2rem;
-  padding-right: 0.2rem;
   color: black;
+  padding-left: .2rem;
+  padding-right: .2rem;
   text-align: center;
 }
 
@@ -166,7 +161,7 @@ body {
 
 /* line 82, ../sass/main.scss */
 .dialog_button {
-  margin-top: 0.8rem;
+  margin-top: .8rem;
   background-color: white;
   font-size: 2rem;
   color: #499bea;
@@ -174,24 +169,23 @@ body {
 
 /* line 89, ../sass/main.scss */
 #flex_container {
-  width: 80rem;
-  margin-left: auto;
-  margin-right: auto;
+  align-items: center;
   display: flex;
   flex-direction: column;
   flex-wrap: nowrap;
   justify-content: center;
-  align-items: center;
+  margin-left: auto;
+  margin-right: auto;
+  width: 80rem;
 }
 
 /* line 101, ../sass/main.scss */
 #title_div {
-  text-align: center;
+  color: white;
   font-family: RapierZero;
   font-size: 5rem;
-  color: white;
   margin-top: 2rem;
-  /* color gradient on the text by making a background gradient behind transparent text */
+  text-align: center;
   background-image: -moz-linear-gradient(#ffffff 50%, #c0c0c0 80%);
   background-image: -webkit-linear-gradient(#ffffff 50%, #c0c0c0 80%);
   background-image: linear-gradient(#ffffff 50%, #c0c0c0 80%);
@@ -208,20 +202,20 @@ body {
   flex: auto;
 }
 
-/* line 129, ../sass/main.scss */
-.carousel_panel.glowing {
+/* line 128, ../sass/main.scss */
+.carousel_panel .glowing {
   border-color: gold;
 }
 
 /* line 133, ../sass/main.scss */
 #carousel_controls {
-  width: 70rem;
-  height: 6rem;
+  align-items: flex-end;
   display: flex;
   flex-direction: row;
   flex-wrap: nowrap;
+  height: 6rem;
   justify-content: space-between;
-  align-items: flex-end;
+  width: 70rem;
 }
 
 /* line 143, ../sass/main.scss */
@@ -239,8 +233,10 @@ body {
 
 /* line 151, ../sass/main.scss */
 #project_name {
+  color: white;
   font-family: BebasNeue;
   font-size: 3rem;
-  color: white;
   text-align: center;
 }
+
+/*# sourceMappingURL=main.css.map */

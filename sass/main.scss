@@ -1,119 +1,119 @@
-@import "base";
+@import 'base';
 
 
-/* for debugging */
+// for debugging 
 * {
-	outline: 1px red solid;
+  outline: 1px red solid;
 }
 
-.full_height {
-	height: 100%;
+.full-height {
+  height: 100%;
 }
 
 .hidden {
-	display: none;
+  display: none;
 }
 
 html {
-	@extend .full_height;
+  @extend .full-height;
 }
 
 body {
-	position: relative;
-	@extend .full_height;
-	width: 100%;
-	min-width: 80rem;
-	min-height: 47rem;
-	@include background-image(linear-gradient($primary-color 25%, $secondary-color 50%, $primary-color 75%));
+  @extend .full-height;
+  @include background-image(linear-gradient($primary-color 25%, $secondary-color 50%, $primary-color 75%));
+  min-height: 47rem;
+  min-width: 80rem;
+  position: relative;
+  width: 100%;
 }
 
-/* full-page size, dark semi-transparent layer for a dim effect */
-/* Anything with a Z value higher than this will not be dimmed. */
+// full-page size, dark semi-transparent layer for a dim effect 
+// Anything with a Z value higher than this will not be dimmed. 
 #dim_page_layer {
-	position: fixed;
-	top: 0;
-	bottom: 0;
-	left: 0;
-	right: 0;
-	background-color: black;
-	@include opacity(0.7);
-	z-index: 10;
+  @include opacity(.7);
+  background-color: black;
+  bottom: 0;
+  left: 0;
+  position: fixed;
+  right: 0;
+  top: 0;
+  z-index: 10;
 }
 
 .dialog {
-	position: absolute;
- 	top: 50%;
-	left: 45%;
-	@include translate(-40%, -50%);
-	z-index: 20;
+  @include translate(-40%, -50%);
+  top: 50%;
+  left: 45%;
+  position: absolute;
+  z-index: 20;
 }
 
 .panel-appearance {
-	border-width: 5px;
-	border-style: solid;
-	border-color: $panel-border-color;
-	@include border-radius(10px);
-	background-color: $panel-background-color;
+  @include border-radius(10px);
+  background-color: $panel-background-color;
+  border-color: $panel-border-color;
+  border-style: solid;
+  border-width: 5px;
 }
 
 #project_info_dialog {
-	@extend .panel-appearance;
-	padding-left: 0.2rem;
-	padding-right: 0.2rem;
-	color: black;
-	text-align: center;
+  @extend .panel-appearance;
+  color: black;
+  padding-left: .2rem;
+  padding-right: .2rem;
+  text-align: center;
 }
 
 #dialog_project_pic {
-	height: 25rem;
+  height: 25rem;
 }
 
 #dialog_project_name {
-	font-family: BebasNeue;
-	font-size: 3.5rem;
+  font-family: BebasNeue;
+  font-size: 3.5rem;
 }
 
 #dialog_project_description {
-	font-family: Verdana, Geneva, sans-serif;
-	font-size: 1.5rem;
-	line-height: 120%;
+  font-family: Verdana, Geneva, sans-serif;
+  font-size: 1.5rem;
+  line-height: 120%;
 }
 
 .dialog_button {
-	margin-top: 0.8rem;
-	background-color: $secondary-color;
-	font-size: 2rem;
-	color: $primary-color;
+  margin-top: .8rem;
+  background-color: $secondary-color;
+  font-size: 2rem;
+  color: $primary-color;
 }
 
 #flex_container {
-	@extend .full_height;
-	width: 80rem;
-	margin-left: auto;
-	margin-right: auto;
-	display: flex;
-	flex-direction: column;
-	flex-wrap: nowrap;
-	justify-content: center;
-	align-items: center;
+  @extend .full-height;
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  justify-content: center;
+  margin-left: auto;
+  margin-right: auto;
+  width: 80rem;
 }
 
 #title_div {
-	text-align: center;
-	font-family: RapierZero;
-	font-size: 5rem;
-	color: $secondary-color;	// fallback if text gradient doesn't work
-	margin-top: 2rem;
-	
-	/* color gradient on the text by making a background gradient behind transparent text */
-	@include background-image(linear-gradient($secondary-color 50%, $tertiary-color 80%));
-	@include background-clip(text);
-	-webkit-text-fill-color: transparent;
-	text-fill-color: transparent;
+  color: $secondary-color;  // fallback if text gradient doesn't work
+  font-family: RapierZero;
+  font-size: 5rem;
+  margin-top: 2rem;
+  text-align: center;
+  
+  // color gradient on the text by making a background gradient behind transparent text 
+  @include background-image(linear-gradient($secondary-color 50%, $tertiary-color 80%));
+  @include background-clip(text);
+  -webkit-text-fill-color: transparent;
+  text-fill-color: transparent;
 }
 
 .flex_spacer {
-	flex: auto;
+  flex: auto;
 }
 
 .carousel_container {
@@ -123,34 +123,34 @@ body {
 }
 
 .carousel_panel {
-	@extend .panel-appearance;
-}
+  @extend .panel-appearance;
 
-.carousel_panel.glowing {
-	border-color: $trim-color;
+  .glowing {
+    border-color: $trim-color;
+  }
 }
 
 #carousel_controls {
-	width: 70rem;
-	height: 6rem;
-	display: flex;
-	flex-direction: row;
-	flex-wrap: nowrap;
-	justify-content: space-between;
-	align-items: flex-end;
+  align-items: flex-end;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  height: 6rem;
+  justify-content: space-between;
+  width: 70rem;
 }
 
 .arrow_button {
-	flex: none;
+  flex: none;
 }
 
 .nonselectable {
-	@include user-select(none);
+  @include user-select(none);
 }
 
 #project_name {
-	font-family: BebasNeue;
-	font-size: 3rem;
-	color: $secondary-color;
-	text-align: center;
+  color: $secondary-color;
+  font-family: BebasNeue;
+  font-size: 3rem;
+  text-align: center;
 }
