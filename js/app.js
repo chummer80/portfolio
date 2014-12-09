@@ -50,7 +50,7 @@ $(document).ready(function() {
         link: 'http://chummer80.github.io/zipzap/'
     }, {
         name: "Listomania",
-        description: "This handy app can be used as a to-do list, a shopping list, or any other " + "type of list you can imagine. Items can be crossed off, removed from the list, or " + "sorted alphabetically. Want to save the list? No worries, the contents of the list " + "persist between page visits. (JavaScript, jQuery, HTML5)",
+        description: "This handy app can be used as a to-do list, a shopping list, or any other " + "type of list you can imagine. Items can be crossed off, removed from the list, or " + "sorted alphabetically. Want to save the list? Don't worry, the contents of the list " + "persist between page visits. (JavaScript, jQuery, HTML5)",
         image: 'images/listomania_thumb.png',
         link: 'http://chummer80.github.io/shopping-list/'
     }, {
