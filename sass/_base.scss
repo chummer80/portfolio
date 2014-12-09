@@ -1,2 +1,15 @@
-@import "compass/reset";
-@import "compass";
+@import 'compass/reset';
+@import 'compass';
+
+// Supply fonts to be used on this page
+@include font-face('RapierZero', font-files('Rapier Zero.otf'));
+@include font-face('BebasNeue', font-files('BebasNeue.otf'));
+
+// color definitions
+$skyblue: #499bea;
+$primary-color: $skyblue;
+$secondary-color: white;
+$tertiary-color: silver;
+$trim-color: gold;
+$panel-background-color: white;
+$panel-border-color: black;
