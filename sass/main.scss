@@ -124,10 +124,10 @@ body {
 
 .carousel_panel {
   @extend .panel-appearance;
+}
 
-  .glowing {
-    border-color: $trim-color;
-  }
+.carousel_panel.glowing {
+  border-color: $trim-color;
 }
 
 #carousel_controls {
