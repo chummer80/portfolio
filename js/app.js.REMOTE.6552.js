@@ -4,7 +4,7 @@ $(document).ready(function() {
     /******************
      * CONSTANTS
      *******************/
-	var DEBUG = false;
+    var DEBUG = true;
 
     var COLORS = {
         WHITE: {
