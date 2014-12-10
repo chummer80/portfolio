@@ -337,23 +337,24 @@ $(document).ready(function() {
     carousel.getJqueryObj().insertAfter($('#title_div + div.flex_spacer'));
 
 
+    $(window).load(function() {
+        // put arrow button images on the canvases
+        var controlDivHeight = $('#carousel_controls').innerHeight();
+        for (var side in arrowData) {
+            var img = $('#arrow_button_' + side + '_image').get(0);
 
-    // put arrow button images on the canvases
-    var controlDivHeight = $('#carousel_controls').innerHeight();
-    for (var side in arrowData) {
-        var img = $('#arrow_button_' + side + '_image').get(0);
+            // scale canvas and image to fit height of the controls container
+            var scale = controlDivHeight / img.height;
+            arrowData[side].canvas = $('#arrow_button_' + side).get(0);
+            arrowData[side].canvas.width = img.width * scale;
+            arrowData[side].canvas.height = img.height * scale;
+            arrowData[side].context = arrowData[side].canvas.getContext('2d');
 
-        // scale canvas and image to fit height of the controls container
-        var scale = controlDivHeight / img.height;
-        arrowData[side].canvas = $('#arrow_button_' + side).get(0);
-        arrowData[side].canvas.width = img.width * scale;
-        arrowData[side].canvas.height = img.height * scale;
-        arrowData[side].context = arrowData[side].canvas.getContext('2d');
+            // draw image on canvas
+            arrowData[side].context.drawImage(img, 0, 0, arrowData[side].canvas.width, arrowData[side].canvas.height);
 
-        // draw image on canvas
-        arrowData[side].context.drawImage(img, 0, 0, arrowData[side].canvas.width, arrowData[side].canvas.height);
-
-        // store original pixel data so color can be changed later
-        arrowData[side].originalPixels = arrowData[side].context.getImageData(0, 0, arrowData[side].canvas.width, arrowData[side].canvas.height);
-    }
+            // store original pixel data so color can be changed later
+            arrowData[side].originalPixels = arrowData[side].context.getImageData(0, 0, arrowData[side].canvas.width, arrowData[side].canvas.height);
+        }
+    });
 });
