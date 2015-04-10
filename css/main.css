@@ -71,11 +71,6 @@ article, aside, details, figcaption, figure, footer, header, hgroup, main, menu,
   font-family: "BebasNeue";
   src: url('../fonts/BebasNeue.otf?1400591397') format('opentype');
 }
-/* line 5, ../sass/main.scss */
-* {
-  outline: 1px red solid;
-}
-
 /* line 9, ../sass/main.scss */
 .full-height, html, body, #flex_container {
   height: 100%;
