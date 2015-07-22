@@ -43,47 +43,86 @@ $(document).ready(function() {
      * Project Info
      *******************/
 
-    var projectInfoArray = [{
-        name: "ZIP Zap",
-        description: "Learn about any ZIP code in the United States using ZIP Zap! " + "The city, state, time zone, weather and map of that ZIP code are just a click away. " + "Even a 3D view of the area can be seen with the help of the Google Earth plugin. " + "The APIs used to get this content were Weather Underground's web API and the Google " + "Maps / Google Earth JavaScript APIs. (JavaScript, jQuery, AJAX)",
-        image: 'images/zipzap_thumb.png',
-        link: 'http://chummer80.github.io/zipzap/'
-    }, {
-        name: "Listomania",
-        description: "This handy app can be used as a to-do list, a shopping list, or any other " + "type of list you can imagine. Items can be crossed off, removed from the list, or " + "sorted alphabetically. Want to save the list? Don't worry, the contents of the list " + "persist between page visits. (JavaScript, jQuery, HTML5)",
-        image: 'images/listomania_thumb.png',
-        link: 'http://chummer80.github.io/shopping-list/'
-    }, {
-        name: "Baxter's Resume",
-        description: "Looking for a new best friend? Look no further! " + "Baxter the corgi pup is ready to fulfill all doggy duties. " + "For more information on his qualifications, check out his resume. " + "(HTML, CSS)",
-        image: 'images/resume_thumb.jpg',
-        link: 'http://chummer80.github.io/html-resume/css_resume.html'
-    }, {
-        name: "WaxTracks Home Page",
-        description: "WaxTracks is a fictional record store specializing in vintage vinyl. " + "This eye-catching home page provides information about the business as well " + "as a gateway to the online store. (HTML, CSS)",
-        image: 'images/waxtracks_thumb.png',
-        link: 'http://chummer80.github.io/business-landing-page/'
-    }, {
-        name: "Street Fighter",
-        description: "Get ready to rumble! This interactive web page lets you control Ryu. " + "This is an example of a dynamic event-driven web app. (JavaScript, jQuery)",
-        image: 'images/streetfighter_thumb.png',
-        link: 'http://chummer80.github.io/jquery-streetfighter/'
-    }, {
-        name: "Hot or Cold",
-        description: "Do you want to play a game? How quickly can you guess the secret number? " + "Don't worry, you'll get some hints along the way. (JavaScript)",
-        image: 'images/hotcold_thumb.png',
-        link: 'http://chummer80.github.io/hot-or-cold/'
-    }, {
-        name: "Stack Overflow Reputation Builder",
-        description: "This app sends requests to Stack Overlow's web API and then " + "fills the page with the results. There are two possible search types, both using a " + "keyword as a filter: 1) Most recent questions and 2) Highest-scoring answerers. " + "(jQuery, AJAX)",
-        image: 'images/stackoverflow_thumb.png',
-        link: 'http://chummer80.github.io/stackerAJAX/'
-    }, {
-        name: "NBA Quiz",
-        description: "Think you know a lot about NBA basketball? Test your skills by answering " + "these trivia questions. (JavaScript, jQuery, HTML5)",
-        image: 'images/nbaquiz_thumb.png',
-        link: 'http://chummer80.github.io/quiz-app/'
-    }, ];
+    var projectInfoArray = [
+        {
+            name: "Keyboard Combat",
+            description: "Get ready to rumble! This real-time head-to-head typing game lets you pit your skills against other fast-fingered players. The faster you type, the faster your fighter throws punches and kicks at the opponent. Do your best to avoid errors, because bragging rights are on the line! (Meteor, MongoDB, Foundation)",
+            logo: 'images/kc_logo.png',
+            thumb: 'images/kc_thumb.png',
+            link: 'http://keyboardcombat.meteor.com'
+        },
+        {
+            name: "Soup du Jour",
+            description: "Are you wracked with indecision every day? Would you like to be more informed about the food and activity options around you? Fear no more, because Soup du Jour provides you with one daily suggestion from each category, and even customizes them according to your user settings. Soup du Jour draws its suggestions from 14 different web APIs. (Ruby on Rails, PostgreSQL, jQuery, Isotope, REST API creation)",
+            logo: 'images/sdj_logo.png',
+            thumb: 'images/sdj_thumb.png',
+            link: 'http://soupdujour.herokuapp.com/'
+        },
+        {
+            name: "BetMonsta",
+            description: "Test your sports prediction abilities with this fun simulation of Vegas-style sports betting. Bet play money on NFL, NBA, MLB, and NHL games. (Ruby on Rails, PostgreSQL, Web-Scraping, Foundation)",
+            logo: 'images/betmonsta_logo.png',
+            thumb: 'images/betmonsta_thumb.png',
+            link: 'http://betmonsta.herokuapp.com'
+        },
+        {
+            name: "Tic Tac Toe",
+            description: "This real-time single-page application lets two players face off in a game of tic tac toe. The twist is that the board size and the winning line length can both be tweaked to make it more challenging! (JavaScript, AngularJS, Firebase)",
+            logo: 'images/tictactoe_logo.png',
+            thumb: 'images/tictactoe_thumb.png',
+            link: 'https://toe.firebaseapp.com'
+        },
+        {
+            name: "ZIP Zap",
+            description: "Learn about any ZIP code in the United States using ZIP Zap! The city, state, time zone, weather and map of that ZIP code are just a click away. Even a 3D view of the area can be seen with the help of the Google Earth plugin. The APIs used to get this content were Weather Underground's web API and the Google Maps / Google Earth JavaScript APIs. (JavaScript, jQuery, jQueryUI, AJAX)",
+            logo: 'images/zipzap_logo.png',
+            thumb: 'images/zipzap_thumb.png',
+            link: 'http://chummer80.github.io/zipzap/'
+        },
+        {
+            name: "NBA Quiz",
+            description: "Think you know a lot about NBA basketball? Test your skills by answering these trivia questions. (JavaScript, jQuery, HTML5, CSS3)",
+            logo: 'images/nbaquiz_logo.png',
+            thumb: 'images/nbaquiz_thumb.png',
+            link: 'http://chummer80.github.io/quiz-app/'
+        } 
+        // {
+        //     name: "Listomania",
+        //     description: "This handy app can be used as a to-do list, a shopping list, or any other type of list you can imagine. Items can be crossed off, removed from the list, or sorted alphabetically. Want to save the list? Don't worry, the contents of the list persist between page visits. (JavaScript, jQuery, HTML5)",
+        //     image: 'images/listomania_thumb.png',
+        //     link: 'http://chummer80.github.io/shopping-list/'
+        // },
+        // {
+        //     name: "Baxter's Resume",
+        //     description: "Looking for a new best friend? Look no further! Baxter the corgi pup is ready to fulfill all doggy duties. For more information on his qualifications, check out his resume. (HTML, CSS)",
+        //     image: 'images/resume_thumb.jpg',
+        //     link: 'http://chummer80.github.io/html-resume/css_resume.html'
+        // },
+        // {
+        //     name: "WaxTracks Home Page",
+        //     description: "WaxTracks is a fictional record store specializing in vintage vinyl. This eye-catching home page provides information about the business as well as a gateway to the online store. (HTML, CSS)",
+        //     image: 'images/waxtracks_thumb.png',
+        //     link: 'http://chummer80.github.io/business-landing-page/'
+        // },
+        // {
+        //     name: "Street Fighter",
+        //     description: "Get ready to rumble! This interactive web page lets you control Ryu. This is an example of a dynamic event-driven web app. (JavaScript, jQuery)",
+        //     image: 'images/streetfighter_thumb.png',
+        //     link: 'http://chummer80.github.io/jquery-streetfighter/'
+        // },
+        // {
+        //     name: "Hot or Cold",
+        //     description: "Do you want to play a game? How quickly can you guess the secret number? Don't worry, you'll get some hints along the way. (JavaScript)",
+        //     image: 'images/hotcold_thumb.png',
+        //     link: 'http://chummer80.github.io/hot-or-cold/'
+        // },
+        // {
+        //     name: "Stack Overflow Reputation Builder",
+        //     description: "This app sends requests to Stack Overlow's web API and then fills the page with the results. There are two possible search types, both using a keyword as a filter: 1) Most recent questions and 2) Highest-scoring answerers. (jQuery, AJAX)",
+        //     image: 'images/stackoverflow_thumb.png',
+        //     link: 'http://chummer80.github.io/stackerAJAX/'
+        // },
+    ];
 
 
 
@@ -131,7 +170,7 @@ $(document).ready(function() {
     // Customize each panel with different project info
     var carouselPanelSetupCB = function(panelNum, panelObj) {
         panelObj.css({
-            'background-image': 'url("' + projectInfoArray[panelNum - 1].image + '")',
+            'background-image': 'url("' + projectInfoArray[panelNum - 1].logo + '")',
             'background-repeat': 'no-repeat',
             'background-position': 'center center',
             '-webkit-background-size': 'contain',
@@ -188,8 +227,8 @@ $(document).ready(function() {
 
         var $projectImage = $dialogObj.find('#dialog_project_pic');
         $projectImage.attr({
-            src: projectInfo.image,
-            alt: projectInfo.name + " image"
+            src: projectInfo.thumb,
+            alt: projectInfo.name + " thumbnail image"
         });
 
         var $projectName = $dialogObj.find('#dialog_project_name');
@@ -271,18 +310,18 @@ $(document).ready(function() {
                 updateHoverState(side);
             }
         })
-    // When moving mouse off the canvas quickly, mousemove sometimes doesn't fire.
-    // That's why the mouseleave event handler is needed.
-    .mouseleave(function() {
-        var side = $(this).data('side');
-        var oldHoverState = arrowData[side].mouseHover;
-        arrowData[side].mouseHover = false;
-        if (oldHoverState === true) {
-            debug("mouseleave: " + side + " hover state changed: " + arrowData[side].mouseHover);
-            arrowData[side].mouseDown = false;
-            updateHoverState(side);
-        }
-    })
+        // When moving mouse off the canvas quickly, mousemove sometimes doesn't fire.
+        // That's why the mouseleave event handler is needed.
+        .mouseleave(function() {
+            var side = $(this).data('side');
+            var oldHoverState = arrowData[side].mouseHover;
+            arrowData[side].mouseHover = false;
+            if (oldHoverState === true) {
+                debug("mouseleave: " + side + " hover state changed: " + arrowData[side].mouseHover);
+                arrowData[side].mouseDown = false;
+                updateHoverState(side);
+            }
+        })
         .mousedown(function() {
             var side = $(this).data('side');
             // only register click if hovering over the arrow image
@@ -306,6 +345,44 @@ $(document).ready(function() {
                 }
             }
         });
+
+    $(document).keydown(function(event) {
+        // left arrow key was pressed
+        if (event.keyCode === 37) {
+            changeCanvasColor(arrowData['left'], COLORS.SILVER);
+        }
+        // right arrow key was pressed
+        else if (event.keyCode === 39) {
+            changeCanvasColor(arrowData['right'], COLORS.SILVER);
+        }
+    });
+
+    $(document).keyup(function(event) {
+        var side;
+
+        // left arrow key was released
+        if (event.keyCode === 37) {
+            prepareForSpin();
+            carousel.spinNext();
+            side = 'left';
+        }
+
+        // right arrow key was released
+        else if (event.keyCode === 39) {
+            prepareForSpin();
+            carousel.spinPrev();
+            side = 'right';
+        }
+
+        if (side) {
+            if (arrowData[side].mouseHover) {
+                changeCanvasColor(arrowData[side], COLORS.GOLD);
+            }
+            else {
+                changeCanvasColor(arrowData[side], COLORS.WHITE);   
+            }
+        }
+    });
 
     $('#dialog_back_button').click(function() {
         // close dialog, remove dimming layer

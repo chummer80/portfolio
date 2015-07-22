@@ -291,13 +291,15 @@ function Carousel3d (numPanels) {
 	};
 	
 	this.spinNext = function() {
-		theta -= ( 360 / numPanels );
+		theta -= (360 / numPanels);
+		// console.log("theta: " + theta);
 		frontPanelNum = (frontPanelNum < numPanels) ? (frontPanelNum + 1) : 1;
 		spinCarousel();
 	};
 	
 	this.spinPrev = function() {
-		theta += ( 360 / numPanels );
+		theta += (360 / numPanels);
+		// console.log("theta: " + theta);
 		frontPanelNum = (frontPanelNum > 1) ? (frontPanelNum - 1) : numPanels;
 		spinCarousel();
 	};
