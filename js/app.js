@@ -384,17 +384,23 @@ $(document).ready(function() {
         }
     });
 
-    // allow enter key to open dialog of the front-facing project
     $(document).keypress(function(event) {
         if (event.keyCode === 13) {
-            carousel.getFrontPanelObj().click();
+            // allow enter key to open project page if the dialog is already open.
+            if ($('#project_info_dialog').is(':visible')) {
+                $('#dialog_open_project_button').click();
+            }
+            // allow enter key to open dialog of the front-facing project
+            else {
+                carousel.getFrontPanelObj().click();
+            }
         }
     })
 
     // allow escape key to close the dialog
     $(document).keydown(function(event) {
         if (event.keyCode === 27) {
-            showModalDialog(false);
+            $('#dialog_back_button').click();
         }
     });
 
