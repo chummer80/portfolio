@@ -244,12 +244,12 @@ $(document).ready(function() {
     };
 
     var showModalDialog = function(show) {
-        if (show) {
-            $('#project_info_dialog').fadeIn();
-            $('#dim_page_layer').fadeIn();
-        } else if (!show) {
-            $('#project_info_dialog').fadeOut();
-            $('#dim_page_layer').fadeOut();
+        // blank project name indicates carousel is still spinning
+        if (show && $('#project_name').text()) {
+            $('#project_info_dialog, #dim_page_layer').fadeIn();
+        } 
+        else {
+            $('#project_info_dialog, #dim_page_layer').fadeOut();
         }
     };
 
@@ -384,6 +384,19 @@ $(document).ready(function() {
         }
     });
 
+    // allow enter key to open dialog of the front-facing project
+    $(document).keypress(function(event) {
+        if (event.keyCode === 13) {
+            carousel.getFrontPanelObj().click();
+        }
+    })
+
+    // allow escape key to close the dialog
+    $(document).keydown(function(event) {
+        if (event.keyCode === 27) {
+            showModalDialog(false);
+        }
+    });
 
     $('#dialog_back_button, #dim_page_layer').click(function() {
         // close dialog, remove dimming layer
