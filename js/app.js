@@ -384,7 +384,8 @@ $(document).ready(function() {
         }
     });
 
-    $('#dialog_back_button').click(function() {
+
+    $('#dialog_back_button, #dim_page_layer').click(function() {
         // close dialog, remove dimming layer
         showModalDialog(false);
     });
